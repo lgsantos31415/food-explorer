@@ -23,10 +23,10 @@ export const Main = styled.div`
   > div:nth-of-type(2) {
     display: flex;
     > div:nth-of-type(1) {
-      width: 80%;
+      width: 85%;
     }
     > div:nth-of-type(2) {
-      width: 20%;
+      width: 15%;
     }
   }
 
@@ -34,8 +34,8 @@ export const Main = styled.div`
     margin-top: 32px;
   }
 
-  > div:nth-of-type(4) {
-    margin-left: auto;
+  > button {
+    margin: 32px 0 0 auto;
   }
 `;
 
@@ -57,6 +57,7 @@ export const Column = styled.div`
     ${({ theme }) => theme.font.roboto.small.regular}
   }
   > label:nth-of-type(2) {
+    position: relative;
     width: 100%;
     height: 48px;
 
@@ -72,8 +73,14 @@ export const Column = styled.div`
 
     cursor: pointer;
 
+    &:focus-within {
+      outline: 2px solid white;
+    }
     > input {
-      display: none;
+      pointer-events: none;
+      width: 0;
+      height: 0;
+      position: absolute;
     }
     > p {
       ${({ theme }) => theme.font.poppins[100].medium}
@@ -91,15 +98,13 @@ export const Column = styled.div`
 
 export const Ingredients = styled.div`
   width: 100%;
-  min-height: 48px;
+  padding: 12px;
 
   background: ${({ theme }) => theme.colors.dark[900]};
   border-radius: 8px;
 
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  flex-wrap: wrap;
-
-  padding-inline: 12px;
+  display: grid;
+  place-items: center;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
 `;

@@ -1,5 +1,5 @@
 const up = (knex) =>
-  knex.schema.createTable("user", (table) => {
+  knex.schema.createTable("users", (table) => {
     table.increments("id");
     table.text("name").notNullable();
     table.text("email").notNullable();
@@ -16,6 +16,6 @@ const up = (knex) =>
       .defaultTo("customer");
   });
 
-const down = (knex) => knex.schema.dropTable("user");
+const down = (knex) => knex.schema.dropTable("users");
 
 export { up, down };

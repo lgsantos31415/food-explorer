@@ -35,7 +35,7 @@ export const Form = styled.form`
   > div + div {
     margin-top: 32px;
   }
-  > div:nth-of-type(4) {
+  > button {
     margin-block: 32px;
   }
 `;

@@ -9,6 +9,9 @@ export const Container = styled.div`
 
   position: relative;
 
+  &:focus-within {
+    outline: 2px solid white;
+  }
   > select {
     width: 100%;
     height: 100%;

@@ -31,7 +31,9 @@ export default function SignIn() {
             />
           </Column>
           <Button>Entrar</Button>
-          <TextButton>Criar uma conta</TextButton>
+          <TextButton to="/signin" padding="0 6px">
+            Criar uma conta
+          </TextButton>
         </Form>
       </Right>
     </Container>

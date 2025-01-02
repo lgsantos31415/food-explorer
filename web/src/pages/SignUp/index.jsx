@@ -5,7 +5,21 @@ import Input from "../../components/Input";
 import Button from "../../components/Button";
 import TextButton from "../../components/TextButton";
 
+import { useState } from "react";
+import { useNotification } from "../../hooks/notification";
+
 export default function SignUp() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const { showNotification } = useNotification();
+
+  function handleNewUser(e) {
+    e.preventDefault();
+    showNotification("Usuário criado com sucesso!", true);
+  }
+
   return (
     <Container>
       <Left>
@@ -16,7 +30,11 @@ export default function SignUp() {
           <h1>Crie sua conta</h1>
           <Column>
             <label htmlFor="name">Seu nome</label>
-            <Input id="name" placeholder="Exemplo: Maria da Silva" />
+            <Input
+              id="name"
+              placeholder="Exemplo: Maria da Silva"
+              onChange={(e) => setName(e.target.value)}
+            />
           </Column>
           <Column>
             <label htmlFor="email">E-mail</label>
@@ -24,6 +42,7 @@ export default function SignUp() {
               id="email"
               type="email"
               placeholder="Exemplo: exemplo@exemplo.com.br"
+              onChange={(e) => setEmail(e.target.value)}
             />
           </Column>
           <Column>
@@ -32,10 +51,13 @@ export default function SignUp() {
               id="password"
               type="password"
               placeholder="No mínimo 6 caracteres"
+              onChange={(e) => setPassword(e.target.value)}
             />
           </Column>
-          <Button>Criar conta</Button>
-          <TextButton>Já tenho uma conta</TextButton>
+          <Button onClick={(e) => handleNewUser(e)}>Criar conta</Button>
+          <TextButton to="/" padding="0 6px">
+            Já tenho uma conta
+          </TextButton>
         </Form>
       </Right>
     </Container>

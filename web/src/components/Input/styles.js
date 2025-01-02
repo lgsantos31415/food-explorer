@@ -13,6 +13,10 @@ export const Container = styled.div`
   border-radius: 8px;
   background: ${({ theme }) => theme.colors.dark[900]};
 
+  &:focus-within {
+    outline: 2px solid white;
+  }
+
   > input {
     width: 100%;
     height: 100%;

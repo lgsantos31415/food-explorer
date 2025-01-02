@@ -5,13 +5,19 @@ export default function Input({
   id,
   placeholder,
   paddingInline,
+  onChange,
   type,
   ...rest
 }) {
   return (
     <Container {...rest} $paddingInline={paddingInline}>
       {Icon && <Icon />}
-      <input id={id} type={type ? type : "text"} placeholder={placeholder} />
+      <input
+        id={id}
+        type={type ? type : "text"}
+        onChange={onChange}
+        placeholder={placeholder}
+      />
     </Container>
   );
 }

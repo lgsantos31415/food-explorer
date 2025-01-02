@@ -1,14 +1,14 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  width: 18%;
+  width: 100%;
   height: fit-content;
 
   display: flex;
   gap: 3px;
   align-items: center;
 
-  padding: 8px 16px;
+  padding: 10px 16px;
   border: ${({ theme, $isNew }) =>
     $isNew
       ? `2px dashed ${theme.colors.light[500]}`

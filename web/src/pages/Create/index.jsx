@@ -9,7 +9,7 @@ import Textarea from "../../components/Textarea";
 import Button from "../../components/Button";
 import Ingredient from "../../components/Ingredient";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import { FiChevronLeft, FiUpload } from "react-icons/fi";
 
@@ -33,7 +33,7 @@ export default function Create() {
     <Container>
       <Header />
       <Main>
-        <TextButton fontSize="24px" bold>
+        <TextButton fontSize="24px" bold padding="0 12px 0 0">
           <FiChevronLeft />
           voltar
         </TextButton>

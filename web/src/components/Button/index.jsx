@@ -5,6 +5,7 @@ export default function Button({
   children,
   fitContent,
   paddingInline,
+  onClick,
   ...rest
 }) {
   return (
@@ -12,6 +13,7 @@ export default function Button({
       {...rest}
       $fitContent={fitContent}
       $paddingInline={paddingInline}
+      onClick={onClick}
     >
       {Icon && <Icon />}
       <span>{children}</span>

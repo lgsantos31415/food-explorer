@@ -11,7 +11,9 @@ import { PiReceipt } from "react-icons/pi";
 export default function Header() {
   return (
     <Container>
-      <Logo fontSize={24} />
+      <TextButton to="/home">
+        <Logo fontSize={24} />
+      </TextButton>
       <Input
         icon={FiSearch}
         placeholder="Busque por pratos ou ingredientes"
@@ -21,7 +23,7 @@ export default function Header() {
         Pedidos (0)
       </Button>
 
-      <TextButton fontSize="26px">
+      <TextButton fontSize="20px">
         <FiLogOut />
       </TextButton>
     </Container>

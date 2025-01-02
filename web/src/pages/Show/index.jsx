@@ -43,7 +43,7 @@ export default function Show() {
     <Container>
       <Header />
       <Main>
-        <TextButton fontSize="24px" bold>
+        <TextButton fontSize="24px" bold padding="0 16px 0 0">
           <FiChevronLeft />
           voltar
         </TextButton>

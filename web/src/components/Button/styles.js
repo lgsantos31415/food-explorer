@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+export const Container = styled.button`
   width: ${({ $fitContent }) => ($fitContent ? "fit-content" : "100%")};
   height: 46px;
 
@@ -16,22 +16,26 @@ export const Container = styled.div`
   background: ${({ theme }) => theme.colors.tomato[100]};
   border-radius: 8px;
 
-  transition: all ease-in-out 350ms;
+  transition: opacity ease-in-out 350ms;
   cursor: pointer;
 
   ${({ theme }) => theme.font.poppins[100].medium}
   color: ${({ theme }) => theme.colors.light[100]};
+
+  user-select: none;
+  border: none;
 
   > svg {
     font-size: 32px;
     display: grid;
     place-items: center;
   }
-
+  &:focus {
+    outline: 2px solid white;
+  }
   &:hover {
     opacity: 0.8;
   }
-
   &:active {
     background: ${({ theme }) => theme.colors.tomato[400]};
   }

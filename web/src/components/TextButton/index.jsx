@@ -5,11 +5,18 @@ export default function TextButton({
   fontSize,
   children,
   onClick,
+  padding,
   bold,
   ...rest
 }) {
   return (
-    <Container $fontSize={fontSize} $bold={bold} onClick={onClick} {...rest}>
+    <Container
+      $fontSize={fontSize}
+      $padding={padding}
+      $bold={bold}
+      onClick={onClick}
+      {...rest}
+    >
       {Icon && <Icon />}
       {children}
     </Container>
