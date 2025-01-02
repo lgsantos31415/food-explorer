@@ -21,6 +21,10 @@ export const Container = styled.div`
 
   cursor: pointer;
 
+  transition: all ease-in-out 500ms;
+
+  opacity: ${({ $time }) => ($time ? "0.8" : "0.4")};
+
   > a:nth-of-type(1) {
     top: 16px;
     right: 16px;

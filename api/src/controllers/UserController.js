@@ -42,8 +42,8 @@ export default class UserController {
   }
 
   async update(req, res) {
-    const { id } = req.params;
     const { name, email, password, oldPassword } = req.body;
+    const id = req.user.id;
 
     const user = await con("users").where({ id }).first();
 

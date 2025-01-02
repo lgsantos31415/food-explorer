@@ -6,7 +6,10 @@ import IngredientController from "../controllers/IngredientController.js";
 
 const ingredientController = new IngredientController();
 
-ingredientRouter.post("/ingredient/:food_id", ingredientController.create);
-ingredientRouter.get("/ingredient", ingredientController.index);
+import ensureAuthentication from "../middlewares/ensureAuthentication.js";
+
+ingredientRouter.use(ensureAuthentication);
+
+ingredientRouter.get("/", ingredientController.index);
 
 export default ingredientRouter;

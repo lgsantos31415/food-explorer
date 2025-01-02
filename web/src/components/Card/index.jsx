@@ -6,8 +6,12 @@ import TextButton from "../TextButton";
 import Button from "../Button";
 
 import { FiMinus, FiPlus, FiHeart } from "react-icons/fi";
+import { GoPencil } from "react-icons/go";
+
+import { useAuth } from "../../hooks/auth";
 
 export default function Card({ title, img, price, children }) {
+  const { user } = useAuth();
   const [quantity, setQuantity] = useState(1);
 
   const parcel = String(price).split(".");
@@ -35,33 +39,42 @@ export default function Card({ title, img, price, children }) {
 
   return (
     <Container>
-      <TextButton fontSize="24px" onClick={() => setLiked(!liked)}>
-        {liked ? <FilledHeart /> : <FiHeart />}
-      </TextButton>
+      {user.role === "admin" ? (
+        <TextButton fontSize="24px">
+          <GoPencil />
+        </TextButton>
+      ) : (
+        <TextButton fontSize="24px" onClick={() => setLiked(!liked)}>
+          {liked ? <FilledHeart /> : <FiHeart />}
+        </TextButton>
+      )}
       <img src={img} alt={title} />
       <h1>{title}</h1>
       <p>{children}</p>
       <span>R$ {String(price).replace(".", ",")}</span>
-      <Row>
-        <Row2>
-          <TextButton
-            fontSize="24px"
-            onClick={(e) => handleNumberOfItems(e, -1)}
-          >
-            <FiMinus />
-          </TextButton>
-          <span>{String(quantity).padStart(2, "0")}</span>
-          <TextButton
-            fontSize="24px"
-            onClick={(e) => handleNumberOfItems(e, 1)}
-          >
-            <FiPlus />
-          </TextButton>
-        </Row2>
-        <Button fitContent paddingInline>
-          Incluir
-        </Button>
-      </Row>
+
+      {user.role !== "admin" && (
+        <Row>
+          <Row2>
+            <TextButton
+              fontSize="24px"
+              onClick={(e) => handleNumberOfItems(e, -1)}
+            >
+              <FiMinus />
+            </TextButton>
+            <span>{String(quantity).padStart(2, "0")}</span>
+            <TextButton
+              fontSize="24px"
+              onClick={(e) => handleNumberOfItems(e, 1)}
+            >
+              <FiPlus />
+            </TextButton>
+          </Row2>
+          <Button fitContent paddingInline>
+            Incluir
+          </Button>
+        </Row>
+      )}
     </Container>
   );
 }

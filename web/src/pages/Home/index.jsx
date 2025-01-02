@@ -3,11 +3,42 @@ import { Container, Banner, Main, Right, Row, Slider } from "./styles";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Card from "../../components/Card";
+import LoadingCard from "../../components/LoadingCard";
+import EmptyCard from "../../components/EmptyCard";
 
 import Img1 from "../../assets/img1.png";
 import Spaghetti from "../../assets/spaghetti.png";
+import api from "../../services/api.js";
+import { useState, useEffect } from "react";
+import { useNotification } from "../../hooks/notification.jsx";
 
 export default function Home() {
+  const { showNotification } = useNotification();
+
+  const [refeicoes, setRefeicoes] = useState(null);
+  const [sobremesas, setSobremesas] = useState(null);
+  const [bebidas, setBebidas] = useState(null);
+
+  async function fetchData(category, set) {
+    try {
+      const res = await api.get(`/food/index/${category}`);
+      set(res.data);
+    } catch (error) {
+      if (error.response) {
+        showNotification(error.response.data.message);
+      } else {
+        console.log(error);
+        showNotification("Algo deu errado");
+      }
+    }
+  }
+
+  useEffect(() => {
+    fetchData("refeicoes", setRefeicoes);
+    fetchData("sobremesas", setSobremesas);
+    fetchData("bebidas", setBebidas);
+  }, []);
+
   return (
     <Container>
       <Header />
@@ -22,61 +53,82 @@ export default function Home() {
         <Slider>
           <h1>Refeições</h1>
           <Row>
-            {Array(10)
-              .fill(null)
-              .map((_, key) => {
+            {refeicoes === null ? (
+              Array(4)
+                .fill(null)
+                .map((_, key) => {
+                  return <LoadingCard times={key} key={key} />;
+                })
+            ) : refeicoes === "" ? (
+              <EmptyCard />
+            ) : (
+              refeicoes.map((food, key) => {
                 return (
                   <Card
                     key={key}
-                    img={Spaghetti}
-                    title="Spaguetti Gambe"
-                    price={79.97}
+                    img={food.image}
+                    title={food.title}
+                    price={food.prince}
                   >
-                    Presunto de parma e rúcula em um pão com fermentação
-                    natural.
+                    {food.description}
                   </Card>
                 );
-              })}
+              })
+            )}
           </Row>
         </Slider>
         <Slider>
           <h1>Sobremesas</h1>
           <Row>
-            {Array(10)
-              .fill(null)
-              .map((_, key) => {
+            {sobremesas === null ? (
+              Array(4)
+                .fill(null)
+                .map((_, key) => {
+                  return <LoadingCard times={key} key={key} />;
+                })
+            ) : sobremesas === "" ? (
+              <EmptyCard />
+            ) : (
+              sobremesas.map((food, key) => {
                 return (
                   <Card
                     key={key}
-                    img={Spaghetti}
-                    title="Spaguetti Gambe"
-                    price={79.97}
+                    img={food.image}
+                    title={food.title}
+                    price={food.prince}
                   >
-                    Presunto de parma e rúcula em um pão com fermentação
-                    natural.
+                    {food.description}
                   </Card>
                 );
-              })}
+              })
+            )}
           </Row>
         </Slider>
         <Slider>
           <h1>Bebidas</h1>
           <Row>
-            {Array(10)
-              .fill(null)
-              .map((_, key) => {
+            {bebidas === null ? (
+              Array(4)
+                .fill(null)
+                .map((_, key) => {
+                  return <LoadingCard times={key} key={key} />;
+                })
+            ) : bebidas === "" ? (
+              <EmptyCard />
+            ) : (
+              bebidas.map((food, key) => {
                 return (
                   <Card
                     key={key}
-                    img={Spaghetti}
-                    title="Spaguetti Gambe"
-                    price={79.97}
+                    img={food.image}
+                    title={food.title}
+                    price={food.prince}
                   >
-                    Presunto de parma e rúcula em um pão com fermentação
-                    natural.
+                    {food.description}
                   </Card>
                 );
-              })}
+              })
+            )}
           </Row>
         </Slider>
       </Main>

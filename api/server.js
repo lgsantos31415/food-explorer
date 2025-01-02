@@ -1,6 +1,8 @@
 import "express-async-errors";
 import express from "express";
 import routes from "./src/routes/index.js";
+import cookieParser from "cookie-parser";
+import cors from "cors";
 
 import AppError from "./src/utils/AppError.js";
 
@@ -8,6 +10,13 @@ const app = express();
 const port = 3000;
 
 app.use(express.json());
+app.use(cookieParser());
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "http://127.0.0.1:5173"],
+    credentials: true,
+  })
+);
 app.use(routes);
 app.use((error, request, response, next) => {
   if (error instanceof AppError) {

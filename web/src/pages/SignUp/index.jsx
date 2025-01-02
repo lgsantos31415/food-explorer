@@ -7,6 +7,9 @@ import TextButton from "../../components/TextButton";
 
 import { useState } from "react";
 import { useNotification } from "../../hooks/notification";
+import { useNavigate } from "react-router-dom";
+
+import api from "../../services/api";
 
 export default function SignUp() {
   const [name, setName] = useState("");
@@ -15,9 +18,35 @@ export default function SignUp() {
 
   const { showNotification } = useNotification();
 
-  function handleNewUser(e) {
+  const navigate = useNavigate();
+
+  async function handleNewUser(e) {
     e.preventDefault();
-    showNotification("Usuário criado com sucesso!", true);
+
+    if (!name || !email || !password) {
+      return showNotification("Informe os dados necessários");
+    }
+
+    if (name.length < 3) {
+      return showNotification("Digite um nome com pelo menos 3 caracteres");
+    }
+
+    if (password.length < 6) {
+      return showNotification("Digite uma senha com pelo menos 6 caracteres");
+    }
+
+    try {
+      const response = await api.post("/user", { name, email, password });
+
+      navigate("/");
+      return showNotification("Usuário criado com sucesso", true);
+    } catch (error) {
+      if (error.response) {
+        return showNotification(error.response.data.message);
+      } else {
+        return showNotification("Não foi possivel criar a conta");
+      }
+    }
   }
 
   return (

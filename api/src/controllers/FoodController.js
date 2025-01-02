@@ -1,9 +1,12 @@
 import con from "../database/index.js";
 
+import AppError from "../utils/AppError.js";
+
 export default class FoodController {
   async create(req, res) {
-    const { user_id } = req.params;
     const { name, category, image, description, price } = req.body;
+
+    const user_id = req.user.id;
 
     await con("foods").insert({
       name,
@@ -18,11 +21,14 @@ export default class FoodController {
   }
 
   async index(req, res) {
-    const { category } = req.body;
-    const foods = await con("foods")
-      .select("*")
-      .where({ category })
-      .orderBy("name");
+    const { category } = req.params;
+
+    if (!category) {
+      throw new AppError("Informe uma categoria");
+      return;
+    }
+
+    const foods = await con("foods").where({ category });
 
     let foodWithIngredients;
 
@@ -47,7 +53,7 @@ export default class FoodController {
     const { id } = req.params;
     const food = await con("foods").where({ id }).first();
 
-    let foodWithIngredients;
+    let foodWithIngredients = {};
 
     if (food) {
       const ingredients = await con("ingredients").where({ food_id: id });
@@ -58,5 +64,15 @@ export default class FoodController {
     }
 
     return res.json(foodWithIngredients);
+  }
+
+  async search(req, res) {
+    const { title } = req.body;
+
+    if (!title) return res.json();
+
+    const response = await con("foods").whereLike("title", `%${title}%`);
+
+    return res.json(response);
   }
 }

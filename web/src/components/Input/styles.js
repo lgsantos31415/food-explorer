@@ -24,7 +24,6 @@ export const Container = styled.div`
     outline: none;
 
     background: none;
-    border-radius: 8px;
     border: none;
 
     ${({ theme }) => theme.font.roboto.small.regular}

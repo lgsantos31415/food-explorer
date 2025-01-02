@@ -18,7 +18,10 @@ import { FiMinus, FiPlus, FiChevronLeft } from "react-icons/fi";
 
 import { useState } from "react";
 
+import { useAuth } from "../../hooks/auth";
+
 export default function Show() {
+  const { user } = useAuth();
   const [quantity, setQuantity] = useState(1);
 
   function handleNumberOfItems(e, difference) {
@@ -43,7 +46,7 @@ export default function Show() {
     <Container>
       <Header />
       <Main>
-        <TextButton fontSize="24px" bold padding="0 16px 0 0">
+        <TextButton fontSize="24px" bold padding="0 16px 0 0" to="/">
           <FiChevronLeft />
           voltar
         </TextButton>
@@ -62,26 +65,32 @@ export default function Show() {
                   return <span key={key}>{item}</span>;
                 })}
             </Ingredients>
-            <Row2>
-              <Row3>
-                <TextButton
-                  fontSize="24px"
-                  onClick={(e) => handleNumberOfItems(e, -1)}
-                >
-                  <FiMinus />
-                </TextButton>
-                <span>{String(quantity).padStart(2, "0")}</span>
-                <TextButton
-                  fontSize="24px"
-                  onClick={(e) => handleNumberOfItems(e, 1)}
-                >
-                  <FiPlus />
-                </TextButton>
-              </Row3>
+            {user.role === "admin" ? (
               <Button fitContent paddingInline>
-                incluir ∙ R$ 25,00
+                Editar prato
               </Button>
-            </Row2>
+            ) : (
+              <Row2>
+                <Row3>
+                  <TextButton
+                    fontSize="24px"
+                    onClick={(e) => handleNumberOfItems(e, -1)}
+                  >
+                    <FiMinus />
+                  </TextButton>
+                  <span>{String(quantity).padStart(2, "0")}</span>
+                  <TextButton
+                    fontSize="24px"
+                    onClick={(e) => handleNumberOfItems(e, 1)}
+                  >
+                    <FiPlus />
+                  </TextButton>
+                </Row3>
+                <Button fitContent paddingInline>
+                  incluir ∙ R$ 25,00
+                </Button>
+              </Row2>
+            )}
           </Column>
         </Row>
       </Main>

@@ -1,4 +1,4 @@
-import { Container } from "./styles";
+import { Container, Column } from "./styles";
 
 import Logo from "../Logo";
 import Input from "../Input";
@@ -8,22 +8,41 @@ import TextButton from "../TextButton";
 import { FiSearch, FiLogOut } from "react-icons/fi";
 import { PiReceipt } from "react-icons/pi";
 
+import { useAuth } from "../../hooks/auth";
+
+import { useNavigate } from "react-router-dom";
+
 export default function Header() {
+  const { signOut, user } = useAuth();
+
+  const navigate = useNavigate();
+
   return (
     <Container>
-      <TextButton to="/home">
-        <Logo fontSize={24} />
-      </TextButton>
+      <Column>
+        <TextButton to="/" padding="2px 8px">
+          <Column>
+            <Logo fontSize={24} />
+            {user.role === "admin" && <span>admin</span>}
+          </Column>
+        </TextButton>
+      </Column>
       <Input
         icon={FiSearch}
         placeholder="Busque por pratos ou ingredientes"
         paddingInline="128px"
       />
-      <Button fitContent paddingInline icon={PiReceipt}>
-        Pedidos (0)
-      </Button>
+      {user.role === "admin" ? (
+        <Button fitContent paddingInline onClick={() => navigate("/create")}>
+          Novo prato
+        </Button>
+      ) : (
+        <Button fitContent paddingInline="32px" icon={PiReceipt}>
+          Pedidos (0)
+        </Button>
+      )}
 
-      <TextButton fontSize="20px">
+      <TextButton fontSize="20px" onClick={signOut}>
         <FiLogOut />
       </TextButton>
     </Container>

@@ -12,3 +12,17 @@ export const Container = styled.header`
   align-items: center;
   gap: 32px;
 `;
+
+export const Column = styled.div`
+  width: fit-content;
+  height: fit-content;
+
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+
+  > span {
+    ${({ theme }) => theme.font.roboto.smallest.regular}
+    color: ${({ theme }) => theme.colors.cake[200]};
+  }
+`;

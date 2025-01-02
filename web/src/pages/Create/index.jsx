@@ -10,12 +10,15 @@ import Button from "../../components/Button";
 import Ingredient from "../../components/Ingredient";
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { FiChevronLeft, FiUpload } from "react-icons/fi";
 
 export default function Create() {
   const [ingredients, setIngredients] = useState([]);
   const [newIngredient, setNewIngredient] = useState("");
+
+  const navigate = useNavigate();
 
   function handleNewIngredient() {
     if (newIngredient != "") {
@@ -33,7 +36,7 @@ export default function Create() {
     <Container>
       <Header />
       <Main>
-        <TextButton fontSize="24px" bold padding="0 12px 0 0">
+        <TextButton fontSize="24px" bold padding="0 12px 0 0" to="/">
           <FiChevronLeft />
           voltar
         </TextButton>
