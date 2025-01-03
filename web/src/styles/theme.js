@@ -87,7 +87,7 @@ const theme = {
       },
       bigger: {
         regular:
-          'font-family: "Roboto", serif; font-weight: 700; font-size: 24px; line-height: normal; letter-spacing: 0; text-decoration: none; text-transform: none;',
+          'font-family: "Roboto", serif; font-weight: 400; font-size: 24px; line-height: normal; letter-spacing: 0; text-decoration: none; text-transform: none;',
         bold: 'font-family: "Roboto", serif; font-weight: 700; font-size: 24px; line-height: normal; letter-spacing: 0; text-decoration: none; text-transform: none;',
       },
       biggest: {

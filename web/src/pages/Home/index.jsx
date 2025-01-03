@@ -7,12 +7,15 @@ import LoadingCard from "../../components/LoadingCard";
 import EmptyCard from "../../components/EmptyCard";
 
 import Img1 from "../../assets/img1.png";
-import Spaghetti from "../../assets/spaghetti.png";
 import api from "../../services/api.js";
 import { useState, useEffect } from "react";
 import { useNotification } from "../../hooks/notification.jsx";
 
+import { useNavigate } from "react-router-dom";
+
 export default function Home() {
+  const navigate = useNavigate();
+
   const { showNotification } = useNotification();
 
   const [refeicoes, setRefeicoes] = useState(null);
@@ -34,9 +37,9 @@ export default function Home() {
   }
 
   useEffect(() => {
-    fetchData("refeicoes", setRefeicoes);
-    fetchData("sobremesas", setSobremesas);
-    fetchData("bebidas", setBebidas);
+    fetchData("Refeição", setRefeicoes);
+    fetchData("Sobremesa", setSobremesas);
+    fetchData("Bebida", setBebidas);
   }, []);
 
   return (
@@ -66,9 +69,11 @@ export default function Home() {
                 return (
                   <Card
                     key={key}
+                    id={food.id}
                     img={food.image}
-                    title={food.title}
-                    price={food.prince}
+                    name={food.name}
+                    price={food.price}
+                    onClick={() => navigate(`/show/${food.id}`)}
                   >
                     {food.description}
                   </Card>

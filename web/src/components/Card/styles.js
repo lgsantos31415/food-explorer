@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { FiHeart } from "react-icons/fi";
 
 export const Container = styled.div`
-  min-width: 290px;
+  max-width: 290px;
   min-height: 450px;
 
   display: flex;
@@ -27,8 +27,11 @@ export const Container = styled.div`
 
     color: ${({ theme }) => theme.colors.light[300]};
     position: absolute;
+
+    z-index: 2;
   }
   > img {
+    border-radius: 50%;
     width: 164px;
   }
   > h1 {
@@ -36,6 +39,7 @@ export const Container = styled.div`
     color: ${({ theme }) => theme.colors.light[300]};
   }
   > p {
+    word-break: normal;
     text-align: center;
     ${({ theme }) => theme.font.roboto.smaller.regular}
     color: ${({ theme }) => theme.colors.light[400]};

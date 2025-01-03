@@ -15,14 +15,23 @@ import { useNavigate } from "react-router-dom";
 
 import { FiChevronLeft, FiUpload } from "react-icons/fi";
 
+import api from "../../services/api.js";
+
 export default function Create() {
   const { showNotification } = useNotification();
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("refeicoes");
+  const [category, setCategory] = useState("Refeição");
   const [price, setPrice] = useState("");
+
+  const [image, setImage] = useState(null);
+
+  function handleImage(e) {
+    const file = e.target.files[0];
+    setImage(file);
+  }
 
   const [ingredients, setIngredients] = useState([]);
   const [newIngredient, setNewIngredient] = useState("");
@@ -39,12 +48,12 @@ export default function Create() {
     setIngredients(array);
   }
 
-  function handleNewFood() {
+  async function handleNewFood() {
     if (!name) {
       return showNotification("Insira o nome do prato");
     }
 
-    if (ingredients.length == 0) {
+    if (ingredients.length === 0) {
       return showNotification("Insira pelo menos um ingrediente");
     }
 
@@ -55,6 +64,49 @@ export default function Create() {
     if (!description) {
       return showNotification("Insira uma descrição");
     }
+
+    if (!image) {
+      return showNotification("Insira uma imagem");
+    }
+
+    const fileUploadForm = new FormData();
+    fileUploadForm.append("image", image);
+
+    let response;
+
+    try {
+      response = await api.post("/food/image", fileUploadForm);
+    } catch (error) {
+      console.error(error);
+      if (error.response) {
+        return showNotification(error.response.data.message);
+      } else {
+        return showNotification("Não foi possível fazer upload da imagem");
+      }
+    }
+
+    const food = {
+      name,
+      category,
+      image: response.data.filename,
+      description,
+      price: parseFloat(price),
+      ingredients,
+    };
+
+    try {
+      await api.post("/food", food);
+    } catch (error) {
+      console.error(error);
+      if (error.response) {
+        return showNotification(error.response.data.message);
+      } else {
+        return showNotification("Não foi possível cadastrar o novo prato");
+      }
+    }
+
+    showNotification("Prato cadastrado com sucesso", true);
+    return navigate("/");
   }
 
   return (
@@ -76,7 +128,7 @@ export default function Create() {
                 <FiUpload />
                 Selecione imagem
               </p>
-              <input type="file" id="image" />
+              <input type="file" id="image" onChange={handleImage} />
             </label>
           </Column>
           <Column>
@@ -90,9 +142,9 @@ export default function Create() {
           <Column>
             <label htmlFor="category">Categoria</label>
             <Select id="category" onChange={(e) => setCategory(e.target.value)}>
-              <option value="refeicoes">Refeição</option>
-              <option value="sobremesas">Sobremesa</option>
-              <option value="bebidas">Bebida</option>
+              <option value="Refeição">Refeição</option>
+              <option value="Sobremesa">Sobremesa</option>
+              <option value="Bebida">Bebida</option>
             </Select>
           </Column>
         </Row>
@@ -122,6 +174,7 @@ export default function Create() {
           <Column>
             <label htmlFor="price">Preço</label>
             <Input
+              id="price"
               type="number"
               placeholder="R$ 00,00"
               onChange={(e) => setPrice(e.target.value)}

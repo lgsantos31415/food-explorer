@@ -8,7 +8,7 @@ export default class FoodController {
 
     const user_id = req.user.id;
 
-    await con("foods").insert({
+    const [id] = await con("foods").insert({
       name,
       category,
       image,
@@ -16,6 +16,14 @@ export default class FoodController {
       price,
       user_id,
     });
+
+    const ingredientData = ingredients.map((ingredient) => ({
+      food_id: id,
+      user_id,
+      name: ingredient,
+    }));
+
+    await con("ingredients").insert(ingredientData);
 
     return res.json();
   }

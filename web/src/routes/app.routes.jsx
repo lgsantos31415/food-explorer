@@ -19,9 +19,9 @@ export default function AppRoutes() {
   return (
     <Routes>
       <Route element={<Home />} path="/" />
-      <Route element={<Show />} path="/show" />
+      <Route element={<Show />} path="/show/:id" />
       <Route element={<Create />} path="/create" />
-      <Route element={<Edit />} path="/edit" />
+      <Route element={<Edit />} path="/edit/:id" />
     </Routes>
   );
 }

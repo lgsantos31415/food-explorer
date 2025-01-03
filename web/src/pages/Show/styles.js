@@ -27,6 +27,7 @@ export const Row = styled.div`
 
   > img {
     width: 30%;
+    border-radius: 50%;
   }
 `;
 
@@ -86,4 +87,11 @@ export const Row3 = styled.div`
     color: ${({ theme }) => theme.colors.light[300]};
     ${({ theme }) => theme.font.roboto.big.bold}
   }
+`;
+
+export const Placeholder = styled.div`
+  width: 30%;
+  height: 100%;
+  background: red;
+  border-radius: 50%;
 `;

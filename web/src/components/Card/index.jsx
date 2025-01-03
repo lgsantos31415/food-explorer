@@ -10,17 +10,24 @@ import { GoPencil } from "react-icons/go";
 
 import { useAuth } from "../../hooks/auth";
 
-export default function Card({ title, img, price, children }) {
+import { useNavigate } from "react-router-dom";
+
+export default function Card({ id, name, onClick, img, price, children }) {
+  const navigate = useNavigate();
+
   const { user } = useAuth();
   const [quantity, setQuantity] = useState(1);
 
-  const parcel = String(price).split(".");
-  price = `${parcel[0].padStart(2, "0")},${parcel[1].padEnd(2, "0")}`;
+  const parcel = String(parseFloat(price).toFixed(1)).split(".");
+  const firstParcel = parcel[0].padStart(2, "0");
+  const secondParcel = parcel[1].padEnd(2, "0");
+  price = `${firstParcel},${secondParcel}`;
 
   const [liked, setLiked] = useState(false);
 
   function handleNumberOfItems(e, difference) {
     e.preventDefault();
+    e.stopPropagation();
 
     if (difference === 1) {
       const newValue = quantity + 1;
@@ -38,18 +45,28 @@ export default function Card({ title, img, price, children }) {
   }
 
   return (
-    <Container>
+    <Container onClick={onClick}>
       {user.role === "admin" ? (
-        <TextButton fontSize="24px">
+        <TextButton
+          fontSize="24px"
+          onClick={(e) => e.stopPropagation()}
+          to={`/edit/${id}`}
+        >
           <GoPencil />
         </TextButton>
       ) : (
-        <TextButton fontSize="24px" onClick={() => setLiked(!liked)}>
+        <TextButton
+          fontSize="24px"
+          onClick={(e) => {
+            e.stopPropagation();
+            setLiked(!liked);
+          }}
+        >
           {liked ? <FilledHeart /> : <FiHeart />}
         </TextButton>
       )}
-      <img src={img} alt={title} />
-      <h1>{title}</h1>
+      <img src={`http://localhost:3000/files/${img}`} alt={name} />
+      <h1>{name}</h1>
       <p>{children}</p>
       <span>R$ {String(price).replace(".", ",")}</span>
 
@@ -70,7 +87,7 @@ export default function Card({ title, img, price, children }) {
               <FiPlus />
             </TextButton>
           </Row2>
-          <Button fitContent paddingInline>
+          <Button fitContent paddingInline onClick={(e) => e.stopPropagation()}>
             Incluir
           </Button>
         </Row>
