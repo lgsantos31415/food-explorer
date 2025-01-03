@@ -9,16 +9,23 @@ import Textarea from "../../components/Textarea";
 import Button from "../../components/Button";
 import Ingredient from "../../components/Ingredient";
 
+import { useNotification } from "../../hooks/notification";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { FiChevronLeft, FiUpload } from "react-icons/fi";
 
 export default function Create() {
+  const { showNotification } = useNotification();
+  const navigate = useNavigate();
+
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("refeicoes");
+  const [price, setPrice] = useState("");
+
   const [ingredients, setIngredients] = useState([]);
   const [newIngredient, setNewIngredient] = useState("");
-
-  const navigate = useNavigate();
 
   function handleNewIngredient() {
     if (newIngredient != "") {
@@ -30,6 +37,24 @@ export default function Create() {
   function handleRemoveIngredient(e) {
     const array = ingredients.filter((item) => item != e);
     setIngredients(array);
+  }
+
+  function handleNewFood() {
+    if (!name) {
+      return showNotification("Insira o nome do prato");
+    }
+
+    if (ingredients.length == 0) {
+      return showNotification("Insira pelo menos um ingrediente");
+    }
+
+    if (!price) {
+      return showNotification("Insira o preço");
+    }
+
+    if (!description) {
+      return showNotification("Insira uma descrição");
+    }
   }
 
   return (
@@ -56,14 +81,18 @@ export default function Create() {
           </Column>
           <Column>
             <label htmlFor="name">Nome</label>
-            <Input id="name" placeholder="Ex.: Salada Ceaser" />
+            <Input
+              id="name"
+              placeholder="Ex.: Salada Ceaser"
+              onChange={(e) => setName(e.target.value)}
+            />
           </Column>
           <Column>
             <label htmlFor="category">Categoria</label>
-            <Select id="category">
-              <option value="refeicao">Refeição</option>
-              <option value="sobremesa">Sobremesa</option>
-              <option value="bebida">Bebida</option>
+            <Select id="category" onChange={(e) => setCategory(e.target.value)}>
+              <option value="refeicoes">Refeição</option>
+              <option value="sobremesas">Sobremesa</option>
+              <option value="bebidas">Bebida</option>
             </Select>
           </Column>
         </Row>
@@ -92,7 +121,11 @@ export default function Create() {
           </Column>
           <Column>
             <label htmlFor="price">Preço</label>
-            <Input type="number" placeholder="R$ 00,00" />
+            <Input
+              type="number"
+              placeholder="R$ 00,00"
+              onChange={(e) => setPrice(e.target.value)}
+            />
           </Column>
         </Row>
 
@@ -102,12 +135,13 @@ export default function Create() {
             <Textarea
               id="description"
               placeholder="Fale brevemente sobre o prato, seus ingredientes e composição"
+              onChange={(e) => setDescription(e.target.value)}
             />
           </Column>
         </Row>
 
-        <Button fitContent paddingInline>
-          Salvar alterações
+        <Button fitContent paddingInline onClick={handleNewFood}>
+          Adicionar
         </Button>
       </Main>
       <Footer />

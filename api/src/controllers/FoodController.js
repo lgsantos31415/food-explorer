@@ -4,7 +4,7 @@ import AppError from "../utils/AppError.js";
 
 export default class FoodController {
   async create(req, res) {
-    const { name, category, image, description, price } = req.body;
+    const { name, category, image, description, price, ingredients } = req.body;
 
     const user_id = req.user.id;
 

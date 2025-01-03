@@ -8,6 +8,11 @@ function NotificationProvider({ children }) {
   const [visible, setVisible] = useState(false);
 
   function showNotification(newMessage, isSuccess) {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+
     setMessage(newMessage);
     setSuccess(isSuccess);
     setVisible(true);
