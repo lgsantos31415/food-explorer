@@ -6,6 +6,7 @@ export default function Button({
   fitContent,
   paddingInline,
   onClick,
+  animation,
   ...rest
 }) {
   return (
@@ -13,6 +14,7 @@ export default function Button({
       {...rest}
       $fitContent={fitContent}
       $paddingInline={paddingInline}
+      $animation={animation}
       onClick={onClick}
     >
       {Icon && <Icon />}

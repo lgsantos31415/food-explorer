@@ -1,4 +1,4 @@
-import { Container, Main, Row, Column, Ingredients } from "./styles";
+import { Container, Main, Row, Column, Ingredients, Img } from "./styles";
 
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -13,7 +13,7 @@ import { useNotification } from "../../hooks/notification";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { FiChevronLeft, FiUpload } from "react-icons/fi";
+import { FiChevronLeft, FiUpload, FiX } from "react-icons/fi";
 
 import api from "../../services/api.js";
 
@@ -25,12 +25,14 @@ export default function Create() {
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("Refeição");
   const [price, setPrice] = useState("");
+  const [imagePreview, setImagePreview] = useState();
 
   const [image, setImage] = useState(null);
 
   function handleImage(e) {
     const file = e.target.files[0];
     setImage(file);
+    setImagePreview(URL.createObjectURL(file));
   }
 
   const [ingredients, setIngredients] = useState([]);
@@ -90,7 +92,7 @@ export default function Create() {
       category,
       image: response.data.filename,
       description,
-      price: parseFloat(price),
+      price,
       ingredients,
     };
 
@@ -121,16 +123,23 @@ export default function Create() {
         <h1>Adicionar prato</h1>
 
         <Row>
-          <Column>
-            <label htmlFor="image">Imagem do prato</label>
-            <label htmlFor="image">
-              <p>
-                <FiUpload />
-                Selecione imagem
-              </p>
-              <input type="file" id="image" onChange={handleImage} />
-            </label>
-          </Column>
+          {image !== null ? (
+            <Img onClick={() => setImage(null)}>
+              <img src={imagePreview} />
+              <FiX />
+            </Img>
+          ) : (
+            <Column>
+              <label htmlFor="image">Imagem do prato</label>
+              <label htmlFor="image">
+                <p>
+                  <FiUpload />
+                  Selecione imagem
+                </p>
+                <input type="file" id="image" onChange={handleImage} />
+              </label>
+            </Column>
+          )}
           <Column>
             <label htmlFor="name">Nome</label>
             <Input

@@ -98,9 +98,11 @@ export default function Home() {
                 return (
                   <Card
                     key={key}
+                    id={food.id}
                     img={food.image}
-                    title={food.title}
-                    price={food.prince}
+                    name={food.name}
+                    price={food.price}
+                    onClick={() => navigate(`/show/${food.id}`)}
                   >
                     {food.description}
                   </Card>
@@ -125,9 +127,11 @@ export default function Home() {
                 return (
                   <Card
                     key={key}
+                    id={food.id}
                     img={food.image}
-                    title={food.title}
-                    price={food.prince}
+                    name={food.name}
+                    price={food.price}
+                    onClick={() => navigate(`/show/${food.id}`)}
                   >
                     {food.description}
                   </Card>

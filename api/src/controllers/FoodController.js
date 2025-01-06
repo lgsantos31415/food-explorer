@@ -36,7 +36,9 @@ export default class FoodController {
       return;
     }
 
-    const foods = await con("foods").where({ category });
+    const foods = await con("foods")
+      .where({ category })
+      .orderBy("created_at", "desc");
 
     let foodWithIngredients;
 
@@ -82,5 +84,41 @@ export default class FoodController {
     const response = await con("foods").whereLike("title", `%${title}%`);
 
     return res.json(response);
+  }
+  async update(req, res) {
+    const { food_id, name, category, image, ingredients, description, price } =
+      req.body;
+
+    const oldIngredients = await con("ingredients").where({ food_id });
+    const arrayOldIngredients = oldIngredients.map((item) => item.name);
+
+    const compareIngredients =
+      arrayOldIngredients.length === ingredients.length &&
+      arrayOldIngredients.every((item) => ingredients.includes(item));
+
+    if (!compareIngredients) {
+      const oldIds = arrayOldIngredients.map((item) => item.id);
+      await con("ingredients").whereIn("id", oldIds).del();
+
+      const user_id = req.user.id;
+      const newIngredients = ingredients.map((name) => ({
+        name,
+        user_id,
+        food_id,
+      }));
+    }
+
+    const foodUpdated = {
+      name,
+      category,
+      image,
+      description,
+      price,
+      updated_at: con.fn.now(),
+    };
+
+    await con("foods").update(foodUpdated).where({ id: food_id });
+
+    res.json();
   }
 }

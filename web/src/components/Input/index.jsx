@@ -7,6 +7,7 @@ export default function Input({
   paddingInline,
   onChange,
   type,
+  value,
   ...rest
 }) {
   return (
@@ -17,6 +18,7 @@ export default function Input({
         type={type ? type : "text"}
         onChange={onChange}
         placeholder={placeholder}
+        value={value}
       />
     </Container>
   );

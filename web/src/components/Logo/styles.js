@@ -6,7 +6,7 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 24px;
+  gap: ${({ $fontSize }) => ($fontSize ? `calc(${$fontSize}px *.1)` : "24px")};
   flex-shrink: 0;
 
   > svg {

@@ -1,23 +1,47 @@
-import { Container, Main, Row, Column, Ingredients } from "./styles";
+import { Container, Main, Row, Column, Ingredients, Img } from "./styles.js";
 
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
-import TextButton from "../../components/TextButton";
-import Input from "../../components/Input";
-import Select from "../../components/Select";
-import Textarea from "../../components/Textarea";
-import Button from "../../components/Button";
-import Ingredient from "../../components/Ingredient";
+import Header from "../../components/Header/index.jsx";
+import Footer from "../../components/Footer/index.jsx";
+import TextButton from "../../components/TextButton/index.jsx";
+import Input from "../../components/Input/index.jsx";
+import Select from "../../components/Select/index.jsx";
+import Textarea from "../../components/Textarea/index.jsx";
+import Button from "../../components/Button/index.jsx";
+import Ingredient from "../../components/Ingredient/index.jsx";
 
-import { useNotification } from "../../hooks/notification";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNotification } from "../../hooks/notification.jsx";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-import { FiChevronLeft, FiUpload } from "react-icons/fi";
+import { FiChevronLeft, FiUpload, FiX } from "react-icons/fi";
 
 import api from "../../services/api.js";
 
 export default function Edit() {
+  const { id } = useParams();
+
+  let alterImage = false;
+
+  async function fetchData() {
+    const response = await api(`/food/show/${id}`);
+    const food = response.data;
+
+    setName(food.name);
+    setCategory(food.category);
+    setDescription(food.description);
+    setPrice(food.price.toFixed(2));
+
+    const ingredientNames = food.ingredients.map((item) => item.name);
+    setIngredients(ingredientNames);
+
+    setImage(food.image);
+    setImagePreview(`${api.defaults.baseURL}/files/${food.image}`);
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const { showNotification } = useNotification();
   const navigate = useNavigate();
 
@@ -25,12 +49,14 @@ export default function Edit() {
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("Refeição");
   const [price, setPrice] = useState("");
+  const [imagePreview, setImagePreview] = useState();
 
   const [image, setImage] = useState(null);
 
   function handleImage(e) {
     const file = e.target.files[0];
     setImage(file);
+    setImagePreview(URL.createObjectURL(file));
   }
 
   const [ingredients, setIngredients] = useState([]);
@@ -48,7 +74,7 @@ export default function Edit() {
     setIngredients(array);
   }
 
-  async function handleNewFood() {
+  async function handleUpdateFood() {
     if (!name) {
       return showNotification("Insira o nome do prato");
     }
@@ -65,47 +91,51 @@ export default function Edit() {
       return showNotification("Insira uma descrição");
     }
 
-    if (!image) {
+    if (!image && alterImage) {
       return showNotification("Insira uma imagem");
     }
 
-    const fileUploadForm = new FormData();
-    fileUploadForm.append("image", image);
-
     let response;
 
-    try {
-      response = await api.post("/food/image", fileUploadForm);
-    } catch (error) {
-      console.error(error);
-      if (error.response) {
-        return showNotification(error.response.data.message);
-      } else {
-        return showNotification("Não foi possível fazer upload da imagem");
+    if (alterImage) {
+      const fileUploadForm = new FormData();
+      fileUploadForm.append("image", image);
+
+      try {
+        response = await api.post("/food/image", fileUploadForm);
+      } catch (error) {
+        console.error(error);
+        if (error.response) {
+          return showNotification(error.response.data.message);
+        } else {
+          return showNotification("Não foi possível fazer upload da imagem");
+        }
       }
     }
 
     const food = {
+      food_id: id,
       name,
       category,
-      image: response.data.filename,
+      image: alterImage ? response.data.filename : image,
       description,
       price: parseFloat(price),
       ingredients,
     };
 
     try {
-      await api.post("/food", food);
+      const response = await api.put("/food", food);
+      console.log(response.data);
     } catch (error) {
       console.error(error);
       if (error.response) {
         return showNotification(error.response.data.message);
       } else {
-        return showNotification("Não foi possível cadastrar o novo prato");
+        return showNotification("Não foi possível atualizar o prato");
       }
     }
 
-    showNotification("Prato cadastrado com sucesso", true);
+    showNotification("Prato editado com sucesso", true);
     return navigate("/");
   }
 
@@ -118,30 +148,42 @@ export default function Edit() {
           voltar
         </TextButton>
 
-        <h1>Alterar prato</h1>
+        <h1>Editar prato</h1>
 
         <Row>
-          <Column>
-            <label htmlFor="image">Imagem do prato</label>
-            <label htmlFor="image">
-              <p>
-                <FiUpload />
-                Selecione imagem
-              </p>
-              <input type="file" id="image" onChange={handleImage} />
-            </label>
-          </Column>
+          {image !== null ? (
+            <Img onClick={() => setImage(null)}>
+              <img src={imagePreview} />
+              <FiX />
+            </Img>
+          ) : (
+            <Column>
+              <label htmlFor="image">Imagem do prato</label>
+              <label htmlFor="image">
+                <p>
+                  <FiUpload />
+                  Selecione imagem
+                </p>
+                <input type="file" id="image" onChange={handleImage} />
+              </label>
+            </Column>
+          )}
           <Column>
             <label htmlFor="name">Nome</label>
             <Input
               id="name"
               placeholder="Ex.: Salada Ceaser"
               onChange={(e) => setName(e.target.value)}
+              value={name}
             />
           </Column>
           <Column>
             <label htmlFor="category">Categoria</label>
-            <Select id="category" onChange={(e) => setCategory(e.target.value)}>
+            <Select
+              id="category"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+            >
               <option value="Refeição">Refeição</option>
               <option value="Sobremesa">Sobremesa</option>
               <option value="Bebida">Bebida</option>
@@ -177,6 +219,7 @@ export default function Edit() {
               id="price"
               type="number"
               placeholder="R$ 00,00"
+              value={price}
               onChange={(e) => setPrice(e.target.value)}
             />
           </Column>
@@ -187,13 +230,14 @@ export default function Edit() {
             <label htmlFor="description">Descrição</label>
             <Textarea
               id="description"
+              value={description}
               placeholder="Fale brevemente sobre o prato, seus ingredientes e composição"
               onChange={(e) => setDescription(e.target.value)}
             />
           </Column>
         </Row>
 
-        <Button fitContent paddingInline onClick={handleNewFood}>
+        <Button fitContent paddingInline onClick={handleUpdateFood}>
           Salvar alterações
         </Button>
       </Main>

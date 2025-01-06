@@ -4,16 +4,18 @@ export const Container = styled.header`
   width: 100%;
   height: fit-content;
 
-  padding: 20px 124px;
+  padding: 22px 124px;
 
   background: ${({ theme }) => theme.colors.dark[600]};
 
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 32px;
+`;
 
-  > span {
-    ${({ theme }) => theme.font.roboto.smaller.regular}
-    color: ${({ theme }) => theme.colors.light[200]};
-  }
+export const Row = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 32px;
 `;

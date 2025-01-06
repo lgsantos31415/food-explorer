@@ -17,6 +17,7 @@ const upload = multer(MULTER);
 foodRouter.use(ensureAuthentication);
 
 foodRouter.post("/", foodController.create);
+foodRouter.put("/", foodController.update);
 foodRouter.get("/index/:category", foodController.index);
 foodRouter.get("/show/:id", foodController.show);
 foodRouter.get("/", foodController.show);

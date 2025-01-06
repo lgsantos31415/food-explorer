@@ -25,6 +25,9 @@ export const Container = styled.button`
   user-select: none;
   border: none;
 
+  ${({ $animation }) =>
+    $animation && "animation: shake 1s ease-in-out infinite;"}
+
   > svg {
     font-size: 32px;
     display: grid;
@@ -38,5 +41,20 @@ export const Container = styled.button`
   }
   &:active {
     background: ${({ theme }) => theme.colors.tomato[400]};
+  }
+
+  @keyframes shake {
+    0% {
+      transform: rotateZ(0deg);
+    }
+    33% {
+      transform: rotateZ(-6deg);
+    }
+    66% {
+      transform: rotateZ(6deg);
+    }
+    100% {
+      transform: rotateZ(0deg);
+    }
   }
 `;

@@ -9,11 +9,13 @@ import { FiSearch, FiLogOut } from "react-icons/fi";
 import { PiReceipt } from "react-icons/pi";
 
 import { useAuth } from "../../hooks/auth";
+import { usePreferences } from "../../hooks/preferences";
 
 import { useNavigate } from "react-router-dom";
 
 export default function Header() {
   const { signOut, user } = useAuth();
+  const { quantity, animation } = usePreferences();
 
   const navigate = useNavigate();
 
@@ -37,8 +39,14 @@ export default function Header() {
           Novo prato
         </Button>
       ) : (
-        <Button fitContent paddingInline="32px" icon={PiReceipt}>
-          Pedidos (0)
+        <Button
+          fitContent
+          paddingInline="32px"
+          animation={animation}
+          icon={PiReceipt}
+          onClick={() => navigate("/order")}
+        >
+          Pedidos ({quantity})
         </Button>
       )}
 

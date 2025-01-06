@@ -9,39 +9,44 @@ import { FiMinus, FiPlus, FiHeart } from "react-icons/fi";
 import { GoPencil } from "react-icons/go";
 
 import { useAuth } from "../../hooks/auth";
+import { usePreferences } from "../../hooks/preferences";
 
-import { useNavigate } from "react-router-dom";
+import api from "../../services/api.js";
 
 export default function Card({ id, name, onClick, img, price, children }) {
-  const navigate = useNavigate();
-
   const { user } = useAuth();
-  const [quantity, setQuantity] = useState(1);
+  const { updateOrder, updateLiked, liked } = usePreferences();
+  const [quantityToAdd, setQuantityToAdd] = useState(1);
 
-  const parcel = String(parseFloat(price).toFixed(1)).split(".");
+  const parcel = String(parseFloat(price).toFixed(2)).split(".");
   const firstParcel = parcel[0].padStart(2, "0");
   const secondParcel = parcel[1].padEnd(2, "0");
   price = `${firstParcel},${secondParcel}`;
-
-  const [liked, setLiked] = useState(false);
 
   function handleNumberOfItems(e, difference) {
     e.preventDefault();
     e.stopPropagation();
 
     if (difference === 1) {
-      const newValue = quantity + 1;
+      const newValue = quantityToAdd + 1;
 
       if (newValue < 100) {
-        setQuantity(newValue);
+        setQuantityToAdd(newValue);
       }
     } else {
-      const newValue = quantity - 1;
+      const newValue = quantityToAdd - 1;
 
       if (newValue >= 1) {
-        setQuantity(newValue);
+        setQuantityToAdd(newValue);
       }
     }
+  }
+
+  function handleInclusition(e) {
+    e.stopPropagation();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    updateOrder(id, quantityToAdd);
+    setQuantityToAdd(1);
   }
 
   return (
@@ -59,13 +64,13 @@ export default function Card({ id, name, onClick, img, price, children }) {
           fontSize="24px"
           onClick={(e) => {
             e.stopPropagation();
-            setLiked(!liked);
+            updateLiked(id);
           }}
         >
-          {liked ? <FilledHeart /> : <FiHeart />}
+          {liked.includes(id) ? <FilledHeart /> : <FiHeart />}
         </TextButton>
       )}
-      <img src={`http://localhost:3000/files/${img}`} alt={name} />
+      <img src={`${api.defaults.baseURL}/files/${img}`} alt={name} />
       <h1>{name}</h1>
       <p>{children}</p>
       <span>R$ {String(price).replace(".", ",")}</span>
@@ -79,7 +84,7 @@ export default function Card({ id, name, onClick, img, price, children }) {
             >
               <FiMinus />
             </TextButton>
-            <span>{String(quantity).padStart(2, "0")}</span>
+            <span>{String(quantityToAdd).padStart(2, "0")}</span>
             <TextButton
               fontSize="24px"
               onClick={(e) => handleNumberOfItems(e, 1)}
@@ -87,7 +92,11 @@ export default function Card({ id, name, onClick, img, price, children }) {
               <FiPlus />
             </TextButton>
           </Row2>
-          <Button fitContent paddingInline onClick={(e) => e.stopPropagation()}>
+          <Button
+            fitContent
+            paddingInline
+            onClick={(e) => handleInclusition(e)}
+          >
             Incluir
           </Button>
         </Row>

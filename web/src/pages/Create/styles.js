@@ -42,6 +42,7 @@ export const Main = styled.div`
 export const Row = styled.div`
   width: 100%;
   display: flex;
+  align-items: center;
   gap: 32px;
 `;
 
@@ -107,4 +108,40 @@ export const Ingredients = styled.div`
   place-items: center;
   grid-template-columns: repeat(5, 1fr);
   gap: 10px;
+`;
+
+export const Img = styled.div`
+  width: fit-content;
+
+  position: relative;
+
+  cursor: pointer;
+
+  &:hover {
+    > img {
+      opacity: 0.5;
+    }
+    > svg {
+      display: block;
+    }
+  }
+
+  > img {
+    transition: all ease-in-out 350ms;
+    object-fit: contain;
+    object-position: center;
+    border-radius: 50%;
+    width: 256px;
+    height: 256px;
+  }
+  > svg {
+    transition: all ease-in-out 350ms;
+    display: none;
+    position: absolute;
+    top: 50%;
+    font-size: 52px;
+    color: ${({ theme }) => theme.colors.light[100]};
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 `;

@@ -47,14 +47,8 @@ export default function Show() {
 
     setImage(`http://localhost:3000/files/${food.image}`);
 
-    setIngredients([]);
-
-    const array = Array.from(food.ingredients);
-    array.forEach((item) => {
-      if (ingredients.length < array.length) {
-        setIngredients((prevState) => [...prevState, item.name]);
-      }
-    });
+    const ingredientNames = food.ingredients.map((item) => item.name);
+    setIngredients(ingredientNames);
   }
 
   useEffect(() => {

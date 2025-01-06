@@ -7,6 +7,7 @@ export default function TextButton({
   onClick,
   padding,
   bold,
+  color,
   ...rest
 }) {
   return (
@@ -15,6 +16,7 @@ export default function TextButton({
       $padding={padding}
       $bold={bold}
       onClick={onClick}
+      $color={color}
       {...rest}
     >
       {Icon && <Icon />}
