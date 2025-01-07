@@ -44,9 +44,6 @@ export default function Menu() {
             Meus favoritos
           </TextButton>
         )}
-        {variation == 2 && (
-          <TextButton fontSize="20px">Histórico de pedidos</TextButton>
-        )}
         <TextButton
           fontSize="20px"
           to="/"

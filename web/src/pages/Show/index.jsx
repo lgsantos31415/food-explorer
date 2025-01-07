@@ -6,7 +6,7 @@ import {
   Ingredients,
   Row2,
   Row3,
-  Placeholder,
+  Row4,
 } from "./styles";
 
 import Header from "../../components/Header";
@@ -16,6 +16,7 @@ import TextButton from "../../components/TextButton";
 
 import Circle from "../../assets/circle.svg";
 import { FiMinus, FiPlus, FiChevronLeft } from "react-icons/fi";
+import { GoPencil, GoTrash } from "react-icons/go";
 
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
@@ -103,13 +104,19 @@ export default function Show() {
               })}
             </Ingredients>
             {user.role === "admin" ? (
-              <Button
-                fitContent
-                paddingInline
-                onClick={() => navigate(`/edit/${id}`)}
-              >
-                Editar prato
-              </Button>
+              <Row4>
+                <Button
+                  fitContent
+                  paddingInline
+                  icon={GoPencil}
+                  onClick={() => navigate(`/edit/${id}`)}
+                >
+                  Editar prato
+                </Button>
+                <Button fitContent paddingInline icon={GoTrash}>
+                  Excluir prato
+                </Button>
+              </Row4>
             ) : (
               <Row2>
                 <Row3>

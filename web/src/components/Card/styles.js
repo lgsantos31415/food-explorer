@@ -93,3 +93,21 @@ export const FilledHeart = styled(FiHeart)`
   fill: ${({ theme }) => theme.colors.tomato[200]};
   color: ${({ theme }) => theme.colors.tomato[200]};
 `;
+
+export const Column = styled.div`
+  width: fit-content;
+  height: fit-content;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  position: absolute;
+  top: 16px;
+  right: 16px;
+
+  > a {
+    color: ${({ theme }) => theme.colors.light[300]};
+    z-index: 2;
+  }
+`;

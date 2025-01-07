@@ -4,9 +4,11 @@ const foodRouter = Router();
 
 import FoodController from "../controllers/FoodController.js";
 import FoodImageController from "../controllers/FoodImageController.js";
+import FoodSearchController from "../controllers/FoodSearchController.js";
 
 const foodController = new FoodController();
 const foodImageController = new FoodImageController();
+const foodSearchController = new FoodSearchController();
 
 import ensureAuthentication from "../middlewares/ensureAuthentication.js";
 
@@ -18,10 +20,10 @@ foodRouter.use(ensureAuthentication);
 
 foodRouter.post("/", foodController.create);
 foodRouter.put("/", foodController.update);
+foodRouter.delete("/:id", foodController.delete);
 foodRouter.get("/index/:category", foodController.index);
 foodRouter.get("/show/:id", foodController.show);
-foodRouter.get("/search/:term", foodController.search);
-
+foodRouter.get("/search/:term", foodSearchController.search);
 foodRouter.post(
   "/image",
   ensureAuthentication,

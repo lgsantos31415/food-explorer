@@ -7,7 +7,7 @@ export const Container = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 12px;
+  gap: 0.75rem;
 
   flex-shrink: 0;
 
@@ -29,7 +29,7 @@ export const Container = styled.button`
     $animation && "animation: shake 1s ease-in-out infinite;"}
 
   > svg {
-    font-size: 32px;
+    font-size: 1.3rem;
     display: grid;
     place-items: center;
   }

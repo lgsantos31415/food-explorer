@@ -76,35 +76,6 @@ export default class FoodController {
     return res.json(foodWithIngredients);
   }
 
-  async search(req, res) {
-    const { term } = req.params;
-
-    const foodsResponse = await con("foods").whereLike("name", `%${term}%`);
-
-    const ingredientsResponse = await con("ingredients").whereLike(
-      "name",
-      `%${term}%`
-    );
-
-    let results = [];
-
-    if (ingredientsResponse.length > 0) {
-      results = await Promise.all(
-        ingredientsResponse.map((item) =>
-          con("foods").where({ id: item.food_id })
-        )
-      );
-    }
-
-    if (foodsResponse.length > 0) {
-      return res.json(foodsResponse);
-    } else if (results.length > 0) {
-      return res.json(results);
-    } else {
-      return res.json();
-    }
-  }
-
   async update(req, res) {
     const { food_id, name, category, image, ingredients, description, price } =
       req.body;
@@ -138,6 +109,21 @@ export default class FoodController {
     };
 
     await con("foods").update(foodUpdated).where({ id: food_id });
+
+    res.json();
+  }
+
+  async delete(req, res) {
+    const { id } = req.params;
+
+    const response = await con("foods").where({ id }).first();
+
+    if (!response) {
+      throw new AppError("Prato não encontrado");
+      return;
+    }
+
+    await con("foods").where({ id }).del();
 
     res.json();
   }

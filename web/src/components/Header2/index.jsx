@@ -30,7 +30,6 @@ export default function Header2() {
       </TextButton>
       <Row>
         <TextButton to="/favorites">Meus favoritos</TextButton>
-        <TextButton>Histórico de pedidos</TextButton>
         <Button
           fitContent
           paddingInline="32px"

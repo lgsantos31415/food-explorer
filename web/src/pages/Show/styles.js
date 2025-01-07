@@ -126,9 +126,14 @@ export const Row3 = styled.div`
   }
 `;
 
-export const Placeholder = styled.div`
-  width: 30%;
-  height: 100%;
-  background: red;
-  border-radius: 50%;
+export const Row4 = styled.div`
+  width: 100%;
+  height: fit-content;
+
+  display: flex;
+  gap: 12px;
+
+  @media (max-width: ${resolutions.medium}) {
+    justify-content: center;
+  }
 `;

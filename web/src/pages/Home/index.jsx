@@ -26,6 +26,7 @@ export default function Home() {
   const [refeicoes, setRefeicoes] = useState(null);
   const [sobremesas, setSobremesas] = useState(null);
   const [bebidas, setBebidas] = useState(null);
+  const [refresh, setRefresh] = useState(false);
 
   async function fetchData(category, set) {
     try {
@@ -48,6 +49,14 @@ export default function Home() {
     fetchData("Sobremesa", setSobremesas);
     fetchData("Bebida", setBebidas);
   }, []);
+
+  useEffect(() => {
+    if (refresh) {
+      fetchData("Refeição", setRefeicoes);
+      fetchData("Sobremesa", setSobremesas);
+      fetchData("Bebida", setBebidas);
+    }
+  }, [refresh]);
 
   useEffect(() => {
     if (results.length > 0) {
@@ -103,6 +112,7 @@ export default function Home() {
                     name={food.name}
                     price={food.price}
                     onClick={() => navigate(`/show/${food.id}`)}
+                    setRefresh={setRefresh}
                   >
                     {food.description}
                   </Card>
