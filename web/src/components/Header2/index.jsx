@@ -43,7 +43,7 @@ export default function Header2() {
           <PiReceipt />
           <span>{quantity}</span>
         </TextButton>
-        <TextButton fontSize="20px" onClick={signOut}>
+        <TextButton fontSize="20px" to="/" onClick={signOut}>
           <FiLogOut />
         </TextButton>
       </Row>

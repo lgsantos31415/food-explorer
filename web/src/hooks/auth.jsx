@@ -3,6 +3,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 export const AuthContext = createContext({});
 
 import api from "../services/api";
+
 import { useNotification } from "./notification";
 
 function AuthProvider({ children }) {

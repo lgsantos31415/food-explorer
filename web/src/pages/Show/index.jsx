@@ -18,10 +18,11 @@ import Circle from "../../assets/circle.svg";
 import { FiMinus, FiPlus, FiChevronLeft } from "react-icons/fi";
 
 import { useState, useEffect } from "react";
-import { useAuth } from "../../hooks/auth";
 import { useParams } from "react-router-dom";
-
 import { useNavigate } from "react-router-dom";
+
+import { useAuth } from "../../hooks/auth";
+import { usePreferences } from "../../hooks/preferences.jsx";
 
 import api from "../../services/api.js";
 
@@ -31,6 +32,9 @@ export default function Show() {
   const [price, setPrice] = useState("99,99");
   const [image, setImage] = useState(null);
   const [ingredients, setIngredients] = useState(["carregando..."]);
+
+  const { user } = useAuth();
+  const { updateOrder } = usePreferences();
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -55,7 +59,6 @@ export default function Show() {
     fetchData();
   }, []);
 
-  const { user } = useAuth();
   const [quantity, setQuantity] = useState(1);
 
   function handleNumberOfItems(e, difference) {
@@ -80,7 +83,7 @@ export default function Show() {
     <Container>
       <Header />
       <Main>
-        <TextButton fontSize="24px" bold padding="0 16px 0 0" to="/">
+        <TextButton fontSize="20px" bold padding="0 16px 0 0" to="/">
           <FiChevronLeft />
           voltar
         </TextButton>
@@ -111,20 +114,28 @@ export default function Show() {
               <Row2>
                 <Row3>
                   <TextButton
-                    fontSize="24px"
+                    fontSize="20px"
                     onClick={(e) => handleNumberOfItems(e, -1)}
                   >
                     <FiMinus />
                   </TextButton>
                   <span>{String(quantity).padStart(2, "0")}</span>
                   <TextButton
-                    fontSize="24px"
+                    fontSize="20px"
                     onClick={(e) => handleNumberOfItems(e, 1)}
                   >
                     <FiPlus />
                   </TextButton>
                 </Row3>
-                <Button fitContent paddingInline>
+                <Button
+                  fitContent
+                  paddingInline
+                  onClick={() => {
+                    updateOrder(id, quantity);
+                    setQuantity(1);
+                    navigate("/");
+                  }}
+                >
                   incluir ∙ R$ {price}
                 </Button>
               </Row2>

@@ -77,14 +77,34 @@ export default class FoodController {
   }
 
   async search(req, res) {
-    const { title } = req.body;
+    const { term } = req.params;
 
-    if (!title) return res.json();
+    const foodsResponse = await con("foods").whereLike("name", `%${term}%`);
 
-    const response = await con("foods").whereLike("title", `%${title}%`);
+    const ingredientsResponse = await con("ingredients").whereLike(
+      "name",
+      `%${term}%`
+    );
 
-    return res.json(response);
+    let results = [];
+
+    if (ingredientsResponse.length > 0) {
+      results = await Promise.all(
+        ingredientsResponse.map((item) =>
+          con("foods").where({ id: item.food_id })
+        )
+      );
+    }
+
+    if (foodsResponse.length > 0) {
+      return res.json(foodsResponse);
+    } else if (results.length > 0) {
+      return res.json(results);
+    } else {
+      return res.json();
+    }
   }
+
   async update(req, res) {
     const { food_id, name, category, image, ingredients, description, price } =
       req.body;

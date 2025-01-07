@@ -12,6 +12,7 @@ import { useState, useEffect } from "react";
 
 import { useNotification } from "../../hooks/notification.jsx";
 import { useMenu } from "../../hooks/menu.jsx";
+import { useSearch } from "../../hooks/search.jsx";
 
 import { useNavigate } from "react-router-dom";
 
@@ -20,14 +21,11 @@ export default function Home() {
 
   const { showNotification } = useNotification();
   const { isVisible, setVariation } = useMenu();
+  const { results } = useSearch();
 
   const [refeicoes, setRefeicoes] = useState(null);
   const [sobremesas, setSobremesas] = useState(null);
   const [bebidas, setBebidas] = useState(null);
-
-  useEffect(() => {
-    setVariation(1);
-  }, []);
 
   async function fetchData(category, set) {
     try {
@@ -44,10 +42,34 @@ export default function Home() {
   }
 
   useEffect(() => {
+    setVariation(1);
+
     fetchData("Refeição", setRefeicoes);
     fetchData("Sobremesa", setSobremesas);
     fetchData("Bebida", setBebidas);
   }, []);
+
+  useEffect(() => {
+    if (results.length > 0) {
+      setRefeicoes("");
+      setSobremesas("");
+      setBebidas("");
+      const array = results.flat();
+      array.forEach((item) => {
+        if (item.category === "Refeição") {
+          setRefeicoes((prevState) => [...prevState, item]);
+        } else if (item.category === "Sobremesa") {
+          setSobremesas((prevState) => [...prevState, item]);
+        } else if (item.category === "Bebida") {
+          setBebidas((prevState) => [...prevState, item]);
+        }
+      });
+    } else {
+      fetchData("Refeição", setRefeicoes);
+      fetchData("Sobremesa", setSobremesas);
+      fetchData("Bebida", setBebidas);
+    }
+  }, [results]);
 
   return (
     <Container $isVisible={isVisible}>

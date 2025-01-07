@@ -13,6 +13,8 @@ function PreferencesProvider({ children }) {
   });
 
   function updateOrder(id, quantityToAdd) {
+    id = Number(id);
+
     const updatedOrder = [...order];
     const previousIndex = updatedOrder.findIndex(
       (orderItem) => orderItem.id === id

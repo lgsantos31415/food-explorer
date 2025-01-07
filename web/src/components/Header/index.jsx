@@ -11,6 +11,7 @@ import { PiReceipt } from "react-icons/pi";
 import { useAuth } from "../../hooks/auth";
 import { usePreferences } from "../../hooks/preferences";
 import { useMenu } from "../../hooks/menu";
+import { useSearch } from "../../hooks/search";
 
 import { useNavigate } from "react-router-dom";
 
@@ -18,6 +19,7 @@ export default function Header({ isAdmin }) {
   const { signOut, user } = useAuth();
   const { quantity, animation } = usePreferences();
   const { toggleVisibility } = useMenu();
+  const { handleSearch } = useSearch();
 
   const navigate = useNavigate();
 
@@ -38,6 +40,7 @@ export default function Header({ isAdmin }) {
         icon={FiSearch}
         placeholder="Busque por pratos ou ingredientes"
         paddingInline="128px"
+        onChange={(e) => handleSearch(e.target.value)}
       />
       {user.role === "admin" ? (
         <Button fitContent paddingInline onClick={() => navigate("/create")}>
@@ -54,7 +57,7 @@ export default function Header({ isAdmin }) {
           Pedidos ({quantity})
         </Button>
       )}
-      <TextButton fontSize="20px" onClick={signOut}>
+      <TextButton fontSize="20px" to="/" onClick={signOut}>
         <FiLogOut />
       </TextButton>
       {user.role !== "admin" && (

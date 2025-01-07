@@ -7,10 +7,12 @@ import { FiSearch, FiX } from "react-icons/fi";
 
 import { useMenu } from "../../hooks/menu.jsx";
 import { useAuth } from "../../hooks/auth.jsx";
+import { useSearch } from "../../hooks/search.jsx";
 
 export default function Menu() {
   const { isVisible, toggleVisibility, variation } = useMenu();
   const { signOut, user } = useAuth();
+  const { handleSearch } = useSearch();
 
   return (
     <Container $isVisible={isVisible}>
@@ -30,6 +32,7 @@ export default function Menu() {
             <Input
               icon={FiSearch}
               placeholder="Busque por pratos ou ingredientes"
+              onChange={(e) => handleSearch(e.target.value)}
             />
           ))}
         {variation == 2 && (
@@ -46,6 +49,7 @@ export default function Menu() {
         )}
         <TextButton
           fontSize="20px"
+          to="/"
           onClick={() => {
             toggleVisibility();
             signOut();

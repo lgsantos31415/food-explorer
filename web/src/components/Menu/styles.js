@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  width: 85%;
+  width: 90%;
   height: 100%;
 
   z-index: 10;
@@ -15,7 +15,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
 
-  box-shadow: 5px 0 25px 1px #00000065;
+  box-shadow: 5px 0 25px 1px #00000085;
 
   transition: all ease-in-out 250ms;
 

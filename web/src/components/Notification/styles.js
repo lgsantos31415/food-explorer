@@ -1,11 +1,13 @@
 import styled from "styled-components";
 
+import resolutions from "../../styles/adaptativeResolutions.js";
+
 export const Container = styled.div`
   position: absolute;
 
   width: fit-content;
   height: fit-content;
-  padding: 32px;
+  padding: 24px;
 
   background: ${({ $success }) => ($success ? "green" : "red")};
   border-radius: 12px;
@@ -19,5 +21,10 @@ export const Container = styled.div`
   > p {
     ${({ theme }) => theme.font.roboto.small.regular}
     color: white;
+    text-align: center;
+  }
+
+  @media (max-width: ${resolutions.medium}) {
+    padding: 12px;
   }
 `;
