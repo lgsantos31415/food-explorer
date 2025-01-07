@@ -1,4 +1,4 @@
-import { Container, Header, Main, Column } from "./styles.js";
+import { Container, Header, Main } from "./styles.js";
 
 import Input from "../Input/";
 import TextButton from "../TextButton/";
@@ -10,7 +10,7 @@ import { useAuth } from "../../hooks/auth.jsx";
 
 export default function Menu() {
   const { isVisible, toggleVisibility, variation } = useMenu();
-  const { signOut } = useAuth();
+  const { signOut, user } = useAuth();
 
   return (
     <Container $isVisible={isVisible}>
@@ -21,23 +21,38 @@ export default function Menu() {
         <h1>Menu</h1>
       </Header>
       <Main>
-        {variation == 2 ? (
-          <Column>
-            <TextButton fontSize="20px" to="/favorites">
-              Meus favoritos
+        {variation === 1 &&
+          (user?.role === "admin" ? (
+            <TextButton fontSize="20px" to="/create" onClick={toggleVisibility}>
+              Novo prato
             </TextButton>
-            <TextButton fontSize="20px">Histórico de pedidos</TextButton>
-          </Column>
-        ) : (
-          <Input
-            icon={FiSearch}
-            placeholder="Busque por pratos ou ingredientes"
-          />
+          ) : (
+            <Input
+              icon={FiSearch}
+              placeholder="Busque por pratos ou ingredientes"
+            />
+          ))}
+        {variation == 2 && (
+          <TextButton
+            fontSize="20px"
+            to="/favorites"
+            onClick={toggleVisibility}
+          >
+            Meus favoritos
+          </TextButton>
         )}
-        <TextButton fontSize="20px" onClick={signOut}>
+        {variation == 2 && (
+          <TextButton fontSize="20px">Histórico de pedidos</TextButton>
+        )}
+        <TextButton
+          fontSize="20px"
+          onClick={() => {
+            toggleVisibility();
+            signOut();
+          }}
+        >
           Sair
         </TextButton>
-        <hr />
       </Main>
     </Container>
   );

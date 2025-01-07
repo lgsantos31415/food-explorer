@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import resolutions from "../../styles/adaptativeResolutions";
+
 export const Container = styled.div`
   width: 100%;
   height: fit-content;
@@ -8,7 +10,7 @@ export const Container = styled.div`
   gap: 3px;
   align-items: center;
 
-  padding: 10px 16px;
+  padding: 0.63rem 1rem;
   border: ${({ theme, $isNew }) =>
     $isNew
       ? `2px dashed ${theme.colors.light[500]}`

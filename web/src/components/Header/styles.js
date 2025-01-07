@@ -75,4 +75,10 @@ export const Column = styled.div`
     ${({ theme }) => theme.font.roboto.smallest.regular}
     color: ${({ theme }) => theme.colors.cake[200]};
   }
+
+  @media (max-width: ${resolutions.medium}) {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+  }
 `;

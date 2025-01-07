@@ -20,11 +20,14 @@ export default function Home() {
 
   const { showNotification } = useNotification();
   const { isVisible, setVariation } = useMenu();
-  setVariation(1);
 
   const [refeicoes, setRefeicoes] = useState(null);
   const [sobremesas, setSobremesas] = useState(null);
   const [bebidas, setBebidas] = useState(null);
+
+  useEffect(() => {
+    setVariation(1);
+  }, []);
 
   async function fetchData(category, set) {
     try {

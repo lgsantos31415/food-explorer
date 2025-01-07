@@ -22,16 +22,16 @@ createRoot(document.getElementById("root")).render(
     <NotificationProvider>
       <PreferencesProvider>
         <AuthProvider>
-          <ThemeProvider theme={theme}>
-            <BrowserRouter>
-              <MenuProvider>
+          <BrowserRouter>
+            <MenuProvider>
+              <ThemeProvider theme={theme}>
                 <GlobalStyle />
                 <Notification />
                 <Menu />
                 <App />
-              </MenuProvider>
-            </BrowserRouter>
-          </ThemeProvider>
+              </ThemeProvider>
+            </MenuProvider>
+          </BrowserRouter>
         </AuthProvider>
       </PreferencesProvider>
     </NotificationProvider>

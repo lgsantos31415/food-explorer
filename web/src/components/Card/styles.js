@@ -36,6 +36,7 @@ export const Container = styled.div`
   > img {
     border-radius: 50%;
     width: 164px;
+    height: 164px;
   }
   > h1 {
     ${({ theme }) => theme.font.poppins[300].bold}
@@ -54,9 +55,14 @@ export const Container = styled.div`
   @media (max-width: ${resolutions.medium}) {
     width: 285px;
     min-width: 285px;
-    min-height: 385px;
-    height: 385px;
+    height: 370px;
+    min-height: 370px;
     gap: 6px;
+
+    > img {
+      width: 145px;
+      height: 145px;
+    }
   }
 `;
 

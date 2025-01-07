@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import resolutions from "../../styles/adaptativeResolutions";
+
 export const Container = styled.div`
   width: 100%;
   height: 100vh;
@@ -18,6 +20,11 @@ export const Main = styled.div`
   gap: 42px;
   flex-direction: column;
   justify-content: center;
+
+  @media (max-width: ${resolutions.medium}) {
+    padding: 32px;
+    gap: 24px;
+  }
 `;
 
 export const Row = styled.div`
@@ -28,6 +35,16 @@ export const Row = styled.div`
   > img {
     width: 30%;
     border-radius: 50%;
+  }
+
+  @media (max-width: ${resolutions.medium}) {
+    flex-direction: column;
+    gap: 24px;
+
+    > img {
+      width: 264px;
+      height: 264px;
+    }
   }
 `;
 
@@ -44,13 +61,23 @@ export const Column = styled.div`
     color: ${({ theme }) => theme.colors.light[300]};
     ${({ theme }) => theme.font.poppins[300].regular}
   }
+
+  @media (max-width: ${resolutions.medium}) {
+    > h1 {
+      text-align: center;
+      margin-bottom: 6px;
+    }
+    > p {
+      text-align: center;
+    }
+  }
 `;
 
 export const Ingredients = styled.div`
   width: 100%;
   height: fit-content;
 
-  margin-block: 24px 48px;
+  margin-block: 24px;
 
   display: flex;
   flex-wrap: wrap;
@@ -68,11 +95,21 @@ export const Ingredients = styled.div`
     color: ${({ theme }) => theme.colors.light[100]};
     ${({ theme }) => theme.font.poppins[100].medium}
   }
+
+  @media (max-width: ${resolutions.medium}) {
+    justify-content: center;
+    margin-block: 32px;
+  }
 `;
 
 export const Row2 = styled.div`
   display: flex;
   gap: 32px;
+
+  @media (max-width: ${resolutions.medium}) {
+    gap: 24px;
+    justify-content: center;
+  }
 `;
 
 export const Row3 = styled.div`

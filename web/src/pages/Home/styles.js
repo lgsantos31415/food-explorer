@@ -45,13 +45,13 @@ export const Banner = styled.div`
   }
 
   @media (max-width: ${resolutions.medium}) {
-    height: 160px;
-    padding-inline: 12px;
+    height: 140px;
+    padding: 16px 12px;
 
     > img {
-      left: -6%;
+      left: -9%;
       bottom: -2%;
-      height: 120px;
+      height: 90%;
     }
   }
 `;
@@ -70,7 +70,8 @@ export const Right = styled.div`
   }
 
   @media (max-width: ${resolutions.medium}) {
-    width: 140px;
+    width: 50%;
+    max-width: 140px;
 
     > h1 {
       font-size: 18px;
@@ -104,6 +105,8 @@ export const Row = styled.div`
   }
 
   @media (max-width: ${resolutions.medium}) {
+    gap: 14px;
+
     &::-webkit-scrollbar {
       width: 0;
       height: 0;

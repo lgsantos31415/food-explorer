@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import resolutions from "../../styles/adaptativeResolutions.js";
+
 export const Container = styled.div`
   width: 100%;
   height: 100vh;
@@ -28,6 +30,14 @@ export const Main = styled.div`
     > div:nth-of-type(2) {
       width: 15%;
     }
+    @media (max-width: ${resolutions.medium}) {
+      > div:nth-of-type(1) {
+        width: 100%;
+      }
+      > div:nth-of-type(2) {
+        width: 100%;
+      }
+    }
   }
 
   > div + div {
@@ -37,6 +47,10 @@ export const Main = styled.div`
   > button {
     margin: 32px 0 0 auto;
   }
+
+  @media (max-width: ${resolutions.medium}) {
+    padding: 32px;
+  }
 `;
 
 export const Row = styled.div`
@@ -44,6 +58,10 @@ export const Row = styled.div`
   display: flex;
   align-items: center;
   gap: 32px;
+
+  @media (max-width: ${resolutions.medium}) {
+    flex-direction: column;
+  }
 `;
 
 export const Column = styled.div`
@@ -108,6 +126,10 @@ export const Ingredients = styled.div`
   place-items: center;
   grid-template-columns: repeat(5, 1fr);
   gap: 10px;
+
+  @media (max-width: ${resolutions.medium}) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;
 
 export const Img = styled.div`

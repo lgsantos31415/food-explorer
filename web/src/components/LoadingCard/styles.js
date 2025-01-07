@@ -29,7 +29,7 @@ export const Container = styled.div`
   @media (max-width: ${resolutions.medium}) {
     width: 285px;
     min-width: 285px;
-    min-height: 390px;
-    height: 390px;
+    height: 370px;
+    min-height: 370px;
   }
 `;

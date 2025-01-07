@@ -2,6 +2,7 @@ import { Container, Main, Items, Favorite, Column } from "./styles";
 
 import Header2 from "../../components/Header2";
 import TextButton from "../../components/TextButton";
+import Footer from "../../components/Footer";
 
 import { usePreferences } from "../../hooks/preferences";
 
@@ -60,6 +61,7 @@ export default function Favorites() {
             })}
         </Items>
       </Main>
+      <Footer />
     </Container>
   );
 }

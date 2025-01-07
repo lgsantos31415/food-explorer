@@ -39,8 +39,11 @@ import { useNavigate } from "react-router-dom";
 
 export default function Order() {
   const { isVisible, setVariation } = useMenu();
-  setVariation(2);
   const { order, removeItem } = usePreferences();
+
+  useEffect(() => {
+    setVariation(2);
+  }, []);
 
   const [food, setFood] = useState([]);
   const [total, setTotal] = useState(0.0);

@@ -14,7 +14,7 @@ import { useMenu } from "../../hooks/menu";
 
 import { useNavigate } from "react-router-dom";
 
-export default function Header() {
+export default function Header({ isAdmin }) {
   const { signOut, user } = useAuth();
   const { quantity, animation } = usePreferences();
   const { toggleVisibility } = useMenu();
@@ -22,7 +22,7 @@ export default function Header() {
   const navigate = useNavigate();
 
   return (
-    <Container>
+    <Container $isAdmin={isAdmin}>
       <TextButton fontSize="20px" onClick={toggleVisibility}>
         <FiMenu />
       </TextButton>
@@ -57,10 +57,12 @@ export default function Header() {
       <TextButton fontSize="20px" onClick={signOut}>
         <FiLogOut />
       </TextButton>
-      <TextButton to="/order" fontSize="20px">
-        <PiReceipt />
-        <span>{quantity}</span>
-      </TextButton>
+      {user.role !== "admin" && (
+        <TextButton to="/order" fontSize="20px">
+          <PiReceipt />
+          <span>{quantity}</span>
+        </TextButton>
+      )}
     </Container>
   );
 }

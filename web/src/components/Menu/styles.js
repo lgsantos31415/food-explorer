@@ -17,7 +17,7 @@ export const Container = styled.div`
 
   box-shadow: 5px 0 25px 1px #00000065;
 
-  transition: all ease-in-out 350ms;
+  transition: all ease-in-out 250ms;
 
   ${({ $isVisible }) =>
     $isVisible ? "transform: translateX(0%);" : "transform: translateX(-100%);"}
@@ -53,15 +53,16 @@ export const Main = styled.div`
   flex-direction: column;
 
   > a {
-    margin-block: 32px 12px;
-  }
-  > hr {
-    border: 1px solid ${({ theme }) => theme.colors.dark[1000]};
-  }
-`;
+    width: 100%;
 
-export const Column = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
+    margin-top: 24px;
+    padding-block: 12px;
+
+    border-top: 2px solid ${({ theme }) => theme.colors.dark[1000]};
+    border-bottom: 2px solid ${({ theme }) => theme.colors.dark[1000]};
+  }
+  > a + a {
+    border-top: none;
+    margin-top: 0;
+  }
 `;

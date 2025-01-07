@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import resolutions from "../../styles/adaptativeResolutions";
+
 export const Container = styled.div`
   width: 100%;
   height: 100vh;
@@ -21,6 +23,12 @@ export const Main = styled.div`
     ${({ theme }) => theme.font.poppins[400].medium}
     color: ${({ theme }) => theme.colors.light[300]};
   }
+
+  @media (max-width: ${resolutions.medium}) {
+    padding: 32px;
+
+    flex-direction: column;
+  }
 `;
 
 export const Items = styled.div`
@@ -28,8 +36,13 @@ export const Items = styled.div`
   height: fit-content;
 
   display: flex;
-  gap: 12px;
   flex-wrap: wrap;
+  gap: 12px;
+
+  @media (max-width: ${resolutions.medium}) {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
 `;
 
 export const Favorite = styled.div`
@@ -48,6 +61,17 @@ export const Favorite = styled.div`
     height: 100px;
 
     border-radius: 50%;
+  }
+
+  @media (max-width: ${resolutions.medium}) {
+    width: 100%;
+    padding: 10px;
+    gap: 10px;
+
+    > img {
+      width: 68px;
+      height: 68px;
+    }
   }
 `;
 
