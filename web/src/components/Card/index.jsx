@@ -53,7 +53,7 @@ export default function Card({ id, name, onClick, img, price, children }) {
     <Container onClick={onClick}>
       {user.role === "admin" ? (
         <TextButton
-          fontSize="24px"
+          fontSize="1.5rem"
           onClick={(e) => e.stopPropagation()}
           to={`/edit/${id}`}
         >
@@ -61,7 +61,7 @@ export default function Card({ id, name, onClick, img, price, children }) {
         </TextButton>
       ) : (
         <TextButton
-          fontSize="24px"
+          fontSize="1.5rem"
           onClick={(e) => {
             e.stopPropagation();
             updateLiked(id);
@@ -79,14 +79,14 @@ export default function Card({ id, name, onClick, img, price, children }) {
         <Row>
           <Row2>
             <TextButton
-              fontSize="24px"
+              fontSize="1.5rem"
               onClick={(e) => handleNumberOfItems(e, -1)}
             >
               <FiMinus />
             </TextButton>
             <span>{String(quantityToAdd).padStart(2, "0")}</span>
             <TextButton
-              fontSize="24px"
+              fontSize="1.5rem"
               onClick={(e) => handleNumberOfItems(e, 1)}
             >
               <FiPlus />

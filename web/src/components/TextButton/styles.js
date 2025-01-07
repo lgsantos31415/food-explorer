@@ -16,7 +16,7 @@ export const Container = styled(Link)`
   ${({ theme }) => theme.font.poppins[100].medium}
   color: ${({ theme, $color }) => ($color ? $color : theme.colors.light[100])};
   font-weight: ${({ $bold }) => ($bold ? 700 : 400)};
-  font-size: ${({ $fontSize }) => ($fontSize ? $fontSize : "14px")};
+  font-size: ${({ $fontSize }) => ($fontSize ? $fontSize : ".88rem")};
 
   cursor: pointer;
   user-select: none;

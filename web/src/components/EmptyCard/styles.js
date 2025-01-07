@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-import { FiHeart } from "react-icons/fi";
-
 export const Container = styled.div`
   width: 100%;
   min-height: 225px;

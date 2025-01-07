@@ -9,7 +9,9 @@ import EmptyCard from "../../components/EmptyCard";
 import Img1 from "../../assets/img1.png";
 import api from "../../services/api.js";
 import { useState, useEffect } from "react";
+
 import { useNotification } from "../../hooks/notification.jsx";
+import { useMenu } from "../../hooks/menu.jsx";
 
 import { useNavigate } from "react-router-dom";
 
@@ -17,6 +19,8 @@ export default function Home() {
   const navigate = useNavigate();
 
   const { showNotification } = useNotification();
+  const { isVisible, setVariation } = useMenu();
+  setVariation(1);
 
   const [refeicoes, setRefeicoes] = useState(null);
   const [sobremesas, setSobremesas] = useState(null);
@@ -43,7 +47,7 @@ export default function Home() {
   }, []);
 
   return (
-    <Container>
+    <Container $isVisible={isVisible}>
       <Header />
       <Main>
         <Banner>

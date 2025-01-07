@@ -18,12 +18,15 @@ import {
 } from "./styles";
 
 import Header2 from "../../components/Header2";
+import Footer from "../../components/Footer";
 import TextButton from "../../components/TextButton";
 import Button from "../../components/Button";
 
 import { usePreferences } from "../../hooks/preferences";
+import { useMenu } from "../../hooks/menu";
 
 import api from "../../services/api";
+
 import { useEffect, useState } from "react";
 
 import { PiReceipt } from "react-icons/pi";
@@ -35,7 +38,10 @@ import QrCode from "../../assets/qrcode.png";
 import { useNavigate } from "react-router-dom";
 
 export default function Order() {
+  const { isVisible, setVariation } = useMenu();
+  setVariation(2);
   const { order, removeItem } = usePreferences();
+
   const [food, setFood] = useState([]);
   const [total, setTotal] = useState(0.0);
   const [option, setOption] = useState(1);
@@ -97,7 +103,7 @@ export default function Order() {
   }, [order]);
 
   return (
-    <Container>
+    <Container $isVisible={isVisible}>
       <Header2 />
       <Main>
         <MyOrder>
@@ -171,6 +177,7 @@ export default function Order() {
           </Box>
         </Payament>
       </Main>
+      <Footer />
     </Container>
   );
 }

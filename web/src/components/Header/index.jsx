@@ -5,26 +5,31 @@ import Input from "../Input";
 import Button from "../Button";
 import TextButton from "../TextButton";
 
-import { FiSearch, FiLogOut } from "react-icons/fi";
+import { FiSearch, FiLogOut, FiMenu } from "react-icons/fi";
 import { PiReceipt } from "react-icons/pi";
 
 import { useAuth } from "../../hooks/auth";
 import { usePreferences } from "../../hooks/preferences";
+import { useMenu } from "../../hooks/menu";
 
 import { useNavigate } from "react-router-dom";
 
 export default function Header() {
   const { signOut, user } = useAuth();
   const { quantity, animation } = usePreferences();
+  const { toggleVisibility } = useMenu();
 
   const navigate = useNavigate();
 
   return (
     <Container>
+      <TextButton fontSize="20px" onClick={toggleVisibility}>
+        <FiMenu />
+      </TextButton>
       <Column>
-        <TextButton to="/" padding="2px 8px">
+        <TextButton to="/">
           <Column>
-            <Logo fontSize={24} />
+            <Logo fontSize={1.5} />
             {user.role === "admin" && <span>admin</span>}
           </Column>
         </TextButton>
@@ -49,9 +54,12 @@ export default function Header() {
           Pedidos ({quantity})
         </Button>
       )}
-
       <TextButton fontSize="20px" onClick={signOut}>
         <FiLogOut />
+      </TextButton>
+      <TextButton to="/order" fontSize="20px">
+        <PiReceipt />
+        <span>{quantity}</span>
       </TextButton>
     </Container>
   );

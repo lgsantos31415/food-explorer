@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import resolutions from "../../styles/adaptativeResolutions.js";
+
 export const Container = styled.div`
   width: 100%;
   height: 100vh;
@@ -12,10 +14,16 @@ export const Container = styled.div`
 
     ${({ theme }) => theme.font.poppins["100"].medium}
   }
+
+  @media (max-width: ${resolutions.medium}) {
+    flex-direction: column;
+    justify-content: center;
+    gap: 64px;
+  }
 `;
 
 export const Form = styled.form`
-  width: 65%;
+  min-width: 65%;
   height: fit-content;
   padding: 64px;
 
@@ -37,6 +45,16 @@ export const Form = styled.form`
   }
   > button {
     margin-block: 32px;
+  }
+
+  @media (max-width: ${resolutions.medium}) {
+    min-width: 100%;
+    background: none;
+    padding: 0 46px;
+
+    > h1 {
+      display: none;
+    }
   }
 `;
 
@@ -60,6 +78,10 @@ export const Left = styled.div`
 
   display: grid;
   place-items: center;
+
+  @media (max-width: ${resolutions.medium}) {
+    flex: 0;
+  }
 `;
 
 export const Right = styled.div`
@@ -68,4 +90,8 @@ export const Right = styled.div`
 
   display: grid;
   place-items: center;
+
+  @media (max-width: ${resolutions.medium}) {
+    flex: 0;
+  }
 `;

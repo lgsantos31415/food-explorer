@@ -46,57 +46,57 @@ const theme = {
     poppins: {
       100: {
         medium:
-          'font-family: "Poppins", serif; font-weight: 400; font-size: 14px; line-height: 24px; letter-spacing: 0; text-decoration: none; text-transform: none;',
+          'font-family: "Poppins", serif; font-weight: 400; font-size: .86rem; line-height: 24px; letter-spacing: 0; text-decoration: none; text-transform: none;',
       },
       200: {
         medium:
-          'font-family: "Poppins", serif; font-weight: 400; font-size: 20px; line-height: 160%; letter-spacing: 0; text-decoration: none; text-transform: none;',
+          'font-family: "Poppins", serif; font-weight: 400; font-size: 1.25rem; line-height: 160%; letter-spacing: 0; text-decoration: none; text-transform: none;',
       },
       300: {
         regular:
-          'font-family: "Poppins", serif; font-weight: 400; font-size: 24px; line-height: 140%; letter-spacing: 0; text-decoration: none; text-transform: none;',
+          'font-family: "Poppins", serif; font-weight: 400; font-size: 1.5rem; line-height: 140%; letter-spacing: 0; text-decoration: none; text-transform: none;',
         bold: 'font-family: "Poppins", serif; font-weight: 700; font-size: 24px; line-height: 140%; letter-spacing: 0; text-decoration: none; text-transform: none;',
       },
       400: {
         medium:
-          'font-family: "Poppins", serif; font-weight: 400; font-size: 32px; line-height: 140%; letter-spacing: 0; text-decoration: none; text-transform: none;',
+          'font-family: "Poppins", serif; font-weight: 400; font-size: 2rem; line-height: 140%; letter-spacing: 0; text-decoration: none; text-transform: none;',
       },
       500: {
         medium:
-          'font-family: "Poppins", serif; font-weight: 400; font-size: 40px; line-height: 140%; letter-spacing: 0; text-decoration: none; text-transform: none;',
+          'font-family: "Poppins", serif; font-weight: 400; font-size: 2.5rem; line-height: 140%; letter-spacing: 0; text-decoration: none; text-transform: none;',
       },
     },
     roboto: {
       smallest: {
         regular:
-          'font-family: "Roboto", serif; font-weight: 400; font-size: 12px; line-height: 160%; letter-spacing: 0; text-decoration: none; text-transform: none;',
+          'font-family: "Roboto", serif; font-weight: 400; font-size: .75rem; line-height: 160%; letter-spacing: 0; text-decoration: none; text-transform: none;',
       },
       smaller: {
         regular:
-          'font-family: "Roboto", serif; font-weight: 400; font-size: 14px; line-height: 160%; letter-spacing: 0; text-decoration: none; text-transform: none;',
+          'font-family: "Roboto", serif; font-weight: 400; font-size: .94rem; line-height: 160%; letter-spacing: 0; text-decoration: none; text-transform: none;',
         bold: 'font-family: "Roboto", serif; font-weight: 700; font-size: 14px; line-height: 160%; letter-spacing: 0; text-decoration: none; text-transform: none;',
       },
       small: {
         spaced:
-          'font-family: "Roboto", serif; font-weight: 400; font-size: 16px; line-height: 160%; letter-spacing: 0; text-decoration: none; text-transform: none;',
+          'font-family: "Roboto", serif; font-weight: 400; font-size: 1rem; line-height: 160%; letter-spacing: 0; text-decoration: none; text-transform: none;',
         regular:
-          'font-family: "Roboto", serif; font-weight: 400; font-size: 16px; line-height: 100%; letter-spacing: 0; text-decoration: none; text-transform: none;',
+          'font-family: "Roboto", serif; font-weight: 400; font-size: 1rem; line-height: 100%; letter-spacing: 0; text-decoration: none; text-transform: none;',
       },
       big: {
-        bold: 'font-family: "Roboto", serif; font-weight: 700; font-size: 20px; line-height: 160%; letter-spacing: 0; text-decoration: none; text-transform: none;',
+        bold: 'font-family: "Roboto", serif; font-weight: 700; font-size: 1.25rem; line-height: 160%; letter-spacing: 0; text-decoration: none; text-transform: none;',
       },
       bigger: {
         regular:
-          'font-family: "Roboto", serif; font-weight: 400; font-size: 24px; line-height: normal; letter-spacing: 0; text-decoration: none; text-transform: none;',
-        bold: 'font-family: "Roboto", serif; font-weight: 700; font-size: 24px; line-height: normal; letter-spacing: 0; text-decoration: none; text-transform: none;',
+          'font-family: "Roboto", serif; font-weight: 400; font-size: 1.5rem; line-height: normal; letter-spacing: 0; text-decoration: none; text-transform: none;',
+        bold: 'font-family: "Roboto", serif; font-weight: 700; font-size: 1.5rem; line-height: normal; letter-spacing: 0; text-decoration: none; text-transform: none;',
       },
       biggest: {
         regular:
-          'font-family: "Roboto", serif; font-weight: 400; font-size: 32px; line-height: 160%; letter-spacing: 0; text-decoration: none; text-transform: none;',
-        bold: 'font-family: "Roboto", serif; font-weight: 700; font-size: 24px; line-height: normal; letter-spacing: 0; text-decoration: none; text-transform: none;',
+          'font-family: "Roboto", serif; font-weight: 400; font-size: 2rem; line-height: 160%; letter-spacing: 0; text-decoration: none; text-transform: none;',
+        bold: 'font-family: "Roboto", serif; font-weight: 700; font-size: 1.5rem; line-height: normal; letter-spacing: 0; text-decoration: none; text-transform: none;',
       },
       giant: {
-        bold: 'font-family: "Roboto", serif; font-weight: 700; font-size: 42px; line-height: normal; letter-spacing: 0; text-decoration: none; text-transform: none;',
+        bold: 'font-family: "Roboto", serif; font-weight: 700; font-size: 2.62rem; line-height: normal; letter-spacing: 0; text-decoration: none; text-transform: none;',
       },
     },
   },

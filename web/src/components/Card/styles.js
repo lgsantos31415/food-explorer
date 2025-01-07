@@ -2,8 +2,11 @@ import styled from "styled-components";
 
 import { FiHeart } from "react-icons/fi";
 
+import resolutions from "../../styles/adaptativeResolutions";
+
 export const Container = styled.div`
-  max-width: 290px;
+  width: 300px;
+  min-width: 300px;
   min-height: 450px;
 
   display: flex;
@@ -47,6 +50,13 @@ export const Container = styled.div`
   > span {
     ${({ theme }) => theme.font.roboto.biggest.regular}
     color: ${({ theme }) => theme.colors.cake[200]};
+  }
+  @media (max-width: ${resolutions.medium}) {
+    width: 285px;
+    min-width: 285px;
+    min-height: 385px;
+    height: 385px;
+    gap: 6px;
   }
 `;
 

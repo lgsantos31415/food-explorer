@@ -1,11 +1,15 @@
 import styled from "styled-components";
 
+import resolutions from "../../styles/adaptativeResolutions";
+
 export const Container = styled.div`
   width: 100%;
   height: 100vh;
 
   display: flex;
   flex-direction: column;
+
+  ${({ $isVisible }) => $isVisible && "overflow-y: hidden;"}
 `;
 
 export const Main = styled.div`
@@ -15,6 +19,12 @@ export const Main = styled.div`
 
   display: flex;
   gap: 64px;
+
+  @media (max-width: ${resolutions.medium}) {
+    padding: 32px;
+
+    flex-direction: column;
+  }
 `;
 
 export const MyOrder = styled.div`
@@ -30,6 +40,7 @@ export const MyOrder = styled.div`
     color: ${({ theme }) => theme.colors.light[300]};
   }
 `;
+
 export const Payament = styled.div`
   flex: 1;
   height: 100%;
@@ -64,18 +75,29 @@ export const Row = styled.div`
     height: 72px;
     border-radius: 50%;
   }
+
+  @media (max-width: ${resolutions.medium}) {
+    padding: 10px;
+    gap: 10px;
+
+    > img {
+      width: 68px;
+      height: 68px;
+    }
+  }
 `;
 
 export const Row2 = styled.div`
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 6px;
 
   > h1 {
     ${({ theme }) => theme.font.poppins[200].medium}
     color: ${({ theme }) => theme.colors.light[300]};
   }
   > span {
+    flex-shrink: 0;
     ${({ theme }) => theme.font.roboto.smallest.regular}
     color: ${({ theme }) => theme.colors.light[400]};
   }
@@ -84,12 +106,16 @@ export const Row2 = styled.div`
 export const Column2 = styled.div`
   display: flex;
   flex-direction: column;
+
+  @media (max-width: ${resolutions.medium}) {
+    gap: 0;
+  }
 `;
 
 export const Box = styled.div`
   margin-top: 32px;
 
-  width: 450px;
+  max-width: 450px;
   height: 350px;
 
   border-radius: 6px;
