@@ -13,7 +13,7 @@ export const Container = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 32px;
+  gap: 24px;
 
   > div:nth-of-type(1) {
     display: none;
@@ -25,10 +25,70 @@ export const Container = styled.header`
     > div:nth-of-type(1) {
       display: flex;
     }
+    > div:nth-of-type(2) {
+      ${({ $isAdmin }) => $isAdmin === true && "display: none"}
+    }
   }
 `;
 
 export const Row = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 32px;
+
+  @media (max-width: ${resolutions.medium}) {
+    ${({ $isAdmin }) => $isAdmin && "display: none"}
+
+    > a:nth-of-type(1) {
+      display: none;
+    }
+  }
+`;
+
+export const Column = styled.div`
+  width: fit-content;
+  height: fit-content;
+
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+
+  > span {
+    ${({ theme }) => theme.font.roboto.smallest.regular}
+    color: ${({ theme }) => theme.colors.cake[200]};
+  }
+
+  @media (max-width: ${resolutions.medium}) {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+  }
+`;
+
+export const AdminRow = styled.div`
+  position: relative;
+
+  width: fit-content;
+  height: fit-content;
+
+  display: flex;
+  align-items: center;
+  gap: 32px;
+
+  @media (max-width: ${resolutions.medium}) {
+    > a:nth-of-type(1) {
+      display: none;
+    }
+    > button:nth-of-type(1) {
+      display: none;
+    }
+  }
+`;
+
+export const CustomerRow = styled.div`
+  width: fit-content;
+  height: fit-content;
+
   display: flex;
   align-items: center;
   gap: 32px;
@@ -38,12 +98,13 @@ export const Row = styled.div`
   }
 
   @media (max-width: ${resolutions.medium}) {
-    gap: 0;
-
     > a:nth-of-type(1) {
       display: none;
     }
     > a:nth-of-type(2) {
+      display: none;
+    }
+    > button:nth-of-type(1) {
       display: none;
     }
     > a:nth-of-type(3) {
@@ -68,12 +129,6 @@ export const Row = styled.div`
         line-height: 13px;
         font-weight: 600;
       }
-    }
-    > a:nth-of-type(4) {
-      display: none;
-    }
-    > button {
-      display: none;
     }
   }
 `;

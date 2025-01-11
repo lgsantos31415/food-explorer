@@ -6,6 +6,7 @@ import ingredientRouter from "./ingredient.routes.js";
 import sessionRouter from "./session.routes.js";
 import orderRouter from "./order.routes.js";
 import favoritesRouter from "./favorites.routes.js";
+import orderRouterAdmin from "./order.admin.routes.js";
 
 const routes = Router();
 
@@ -15,5 +16,6 @@ routes.use("/ingredient", ingredientRouter);
 routes.use("/session", sessionRouter);
 routes.use("/order", orderRouter);
 routes.use("/favorites", favoritesRouter);
+routes.use("/admin", orderRouterAdmin);
 
 export default routes;

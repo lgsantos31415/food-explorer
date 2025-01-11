@@ -26,13 +26,22 @@ export default function Menu() {
       <Main>
         {variation === 1 &&
           (user?.role === "admin" ? (
-            <TextButtonWithLink
-              fontSize="20px"
-              to="/create"
-              onClick={toggleVisibility}
-            >
-              Novo prato
-            </TextButtonWithLink>
+            <>
+              <TextButtonWithLink
+                fontSize="20px"
+                to="/orders"
+                onClick={toggleVisibility}
+              >
+                Pedidos
+              </TextButtonWithLink>
+              <TextButtonWithLink
+                fontSize="20px"
+                to="/create"
+                onClick={toggleVisibility}
+              >
+                Novo prato
+              </TextButtonWithLink>
+            </>
           ) : (
             <Input
               icon={FiSearch}

@@ -4,6 +4,7 @@ import Home from "../pages/Home";
 import Show from "../pages/Show";
 import Create from "../pages/Create";
 import Edit from "../pages/Edit";
+import Orders from "../pages/Orders";
 
 import NotFound from "../pages/NotFound";
 
@@ -25,6 +26,7 @@ export default function AdminRoutes() {
       <Route element={<Show />} path="/show/:id" />
       <Route element={<Create />} path="/create" />
       <Route element={<Edit />} path="/edit/:id" />
+      <Route element={<Orders />} path="/orders" />
 
       <Route element={<NotFound />} path="/*" />
     </Routes>

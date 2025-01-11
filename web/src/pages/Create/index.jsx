@@ -1,6 +1,6 @@
 import { Container, Main, Row, Column, Ingredients, Img } from "./styles";
 
-import Header from "../../components/Header";
+import Header2 from "../../components/Header2";
 import Footer from "../../components/Footer";
 import TextButtonWithLink from "../../components/TextButtonWithLink";
 import Input from "../../components/Input";
@@ -113,7 +113,7 @@ export default function Create() {
 
   return (
     <Container>
-      <Header />
+      <Header2 />
       <Main>
         <TextButtonWithLink fontSize="24px" bold padding="0 12px 0 0" to="/">
           <FiChevronLeft />

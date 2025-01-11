@@ -7,9 +7,6 @@ import {
   Th,
   Tbody,
   Td,
-  RedCircle,
-  OrangeCircle,
-  GreenCircle,
   Mobile,
   Row,
   Row2,
@@ -17,6 +14,7 @@ import {
 
 import Header2 from "../../components/Header2";
 import Footer from "../../components/Footer";
+import Select from "../../components/Select";
 
 import resolutions from "../../styles/adaptativeResolutions";
 
@@ -24,11 +22,11 @@ import api from "../../services/api";
 
 import { useState, useEffect } from "react";
 
-export default function History() {
+export default function Orders() {
   const [orders, setOrders] = useState([]);
 
   async function start() {
-    const response = await api.get("/order");
+    const response = await api.get("/admin/");
     setOrders(response.data);
   }
 
@@ -53,13 +51,13 @@ export default function History() {
   function getStatus(stts) {
     switch (stts) {
       case "pending":
-        return { icon: <RedCircle />, message: "Pendente" };
+        return "Pendente";
         break;
       case "preparing":
-        return { icon: <OrangeCircle />, message: "Preparando" };
+        return "Preparando";
         break;
       case "delivered":
-        return { icon: <GreenCircle />, message: "Entregue" };
+        return "Entregue";
         break;
     }
   }
@@ -93,6 +91,7 @@ export default function History() {
               <Tr>
                 <Th>Status</Th>
                 <Th>Pedido</Th>
+                <Th>Usuário</Th>
                 <Th>Detalhamento</Th>
                 <Th>Data e hora</Th>
               </Tr>
@@ -103,10 +102,16 @@ export default function History() {
                   return (
                     <Tr key={key}>
                       <Td>
-                        {getStatus(item.status).icon}
-                        {getStatus(item.status).message}
+                        <Select value={item.status}>
+                          <option value="pending">Pendente</option>
+                          <option value="preparing">Preparando</option>
+                          <option value="delivered">Entregue</option>
+                        </Select>
                       </Td>
                       <Td>{String(item.id).padStart(10, "0")}</Td>
+                      <Td>
+                        {item.user.name} ({item.user.id})
+                      </Td>
                       <Td>
                         {item.ordereds?.length > 0 &&
                           item.ordereds
@@ -130,11 +135,10 @@ export default function History() {
                 return (
                   <Row key={key}>
                     <Row2>
-                      <span>
-                        {getStatus(item.status).icon}
-                        {getStatus(item.status).message}
-                      </span>
                       <span>{String(item.id).padStart(10, "0")}</span>
+                      <span>
+                        {item.user.name} ({item.user.id})
+                      </span>
                       <span>
                         {getFullDate(item.created_at).split(", ").join(" às ")}
                       </span>

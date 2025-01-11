@@ -1,4 +1,4 @@
-import { Container, Column } from "./styles";
+import { Container, Column, AdminRow, CustomerRow } from "./styles";
 
 import Logo from "../Logo";
 import Input from "../Input";
@@ -16,7 +16,7 @@ import { useSearch } from "../../hooks/search";
 
 import { useNavigate } from "react-router-dom";
 
-export default function Header({ isAdmin }) {
+export default function Header() {
   const { signOut, user } = useAuth();
   const { quantity, animation } = useOrders();
   const { toggleVisibility } = useMenu();
@@ -25,7 +25,7 @@ export default function Header({ isAdmin }) {
   const navigate = useNavigate();
 
   return (
-    <Container $isAdmin={isAdmin}>
+    <Container>
       <TextButton fontSize="20px" onClick={toggleVisibility}>
         <FiMenu />
       </TextButton>
@@ -43,30 +43,35 @@ export default function Header({ isAdmin }) {
         paddingInline="128px"
         onChange={(e) => handleSearch(e.target.value)}
       />
-      {user.role === "admin" ? (
-        <Button fitContent paddingInline onClick={() => navigate("/create")}>
-          Novo prato
-        </Button>
-      ) : (
-        <Button
-          fitContent
-          paddingInline="32px"
-          animation={animation}
-          icon={PiReceipt}
-          onClick={() => navigate("/order")}
-        >
-          Pedidos ({quantity})
-        </Button>
+      {user.role === "admin" && (
+        <AdminRow $isAdmin={user.role === "admin" ? true : false}>
+          <TextButtonWithLink to="/orders">Pedidos</TextButtonWithLink>
+          <Button fitContent paddingInline onClick={() => navigate("/create")}>
+            Novo prato
+          </Button>
+        </AdminRow>
       )}
+      {user.role === "customer" && (
+        <CustomerRow>
+          <Button
+            fitContent
+            paddingInline
+            animation={animation}
+            icon={PiReceipt}
+            onClick={() => navigate("/order")}
+          >
+            Pedidos ({quantity})
+          </Button>
+          <TextButtonWithLink to="/order" fontSize="20px">
+            <PiReceipt />
+            <span>{quantity}</span>
+          </TextButtonWithLink>
+        </CustomerRow>
+      )}
+
       <TextButtonWithLink fontSize="20px" to="/" onClick={signOut}>
         <FiLogOut />
       </TextButtonWithLink>
-      {user.role !== "admin" && (
-        <TextButtonWithLink to="/order" fontSize="20px">
-          <PiReceipt />
-          <span>{quantity}</span>
-        </TextButtonWithLink>
-      )}
     </Container>
   );
 }

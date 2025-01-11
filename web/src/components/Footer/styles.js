@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import resolutions from "../../styles/adaptativeResolutions";
 
-export const Container = styled.header`
+export const Container = styled.footer`
   width: 100%;
   height: fit-content;
 

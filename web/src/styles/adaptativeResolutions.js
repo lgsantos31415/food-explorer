@@ -1,5 +1,6 @@
 const resolutions = {
-  medium: "750px",
+  medium: "950px",
+  large: "1200px",
 };
 
 export default resolutions;

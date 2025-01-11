@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import resolutions from "../../styles/adaptativeResolutions";
+
 export const Container = styled.div`
   width: 100%;
   height: 48px;
@@ -12,6 +14,11 @@ export const Container = styled.div`
     $paddingInline ? $paddingInline : "16px"};
   border-radius: 8px;
   background: ${({ theme }) => theme.colors.dark[900]};
+
+  @media (max-width: ${resolutions.large}) {
+    padding-inline: ${({ $paddingInline }) =>
+      $paddingInline && `${$paddingInline.split("px")[0] / 2.5}px`};
+  }
 
   &:focus-within {
     outline: 2px solid white;
