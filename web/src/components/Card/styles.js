@@ -24,7 +24,7 @@ export const Container = styled.div`
 
   cursor: pointer;
 
-  > a:nth-of-type(1) {
+  > div:nth-of-type(1) {
     top: 16px;
     right: 16px;
 

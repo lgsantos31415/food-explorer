@@ -3,7 +3,7 @@ import { Container, Form, Column, Left, Right } from "./styles";
 import Logo from "../../components/Logo";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
-import TextButton from "../../components/TextButton";
+import TextButtonWithLink from "../../components/TextButtonWithLink";
 
 import { useAuth } from "../../hooks/auth";
 import { useNotification } from "../../hooks/notification";
@@ -54,9 +54,9 @@ export default function SignIn() {
             />
           </Column>
           <Button onClick={(e) => handleSignIn(e)}>Entrar</Button>
-          <TextButton to="/signup" padding="0 6px">
+          <TextButtonWithLink to="/signup" padding="0 6px">
             Criar uma conta
-          </TextButton>
+          </TextButtonWithLink>
         </Form>
       </Right>
     </Container>

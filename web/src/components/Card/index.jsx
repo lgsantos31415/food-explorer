@@ -1,15 +1,17 @@
 import { Container, Row, Row2, FilledHeart, Column } from "./styles";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import TextButton from "../TextButton";
+import TextButtonWithLink from "../TextButtonWithLink";
 import Button from "../Button";
 
 import { FiMinus, FiPlus, FiHeart } from "react-icons/fi";
 import { GoPencil, GoTrash } from "react-icons/go";
 
 import { useAuth } from "../../hooks/auth";
-import { usePreferences } from "../../hooks/preferences";
+import { useOrders } from "../../hooks/orders";
+import { useFavorites } from "../../hooks/favorites";
 import { useNotification } from "../../hooks/notification";
 
 import api from "../../services/api.js";
@@ -24,10 +26,25 @@ export default function Card({
   children,
 }) {
   const { user } = useAuth();
-  const { updateOrder, updateLiked, liked } = usePreferences();
+  const { updateLiked, liked } = useFavorites();
+  const { updateOrder } = useOrders();
   const { showNotification } = useNotification();
 
+  const [myLiked, setMyLiked] = useState(false);
   const [quantityToAdd, setQuantityToAdd] = useState(1);
+
+  useEffect(() => {
+    let likedIncludesFoodId = false;
+
+    for (const favorite of liked) {
+      if (favorite.food_id === id) {
+        likedIncludesFoodId = true;
+        break;
+      }
+    }
+
+    setMyLiked(likedIncludesFoodId);
+  }, [liked]);
 
   const parcel = String(parseFloat(price).toFixed(2)).split(".");
   const firstParcel = parcel[0].padStart(2, "0");
@@ -87,13 +104,13 @@ export default function Card({
     <Container onClick={onClick}>
       {user.role === "admin" ? (
         <Column>
-          <TextButton
+          <TextButtonWithLink
             fontSize="20px"
             onClick={(e) => e.stopPropagation()}
             to={`/edit/${id}`}
           >
             <GoPencil />
-          </TextButton>
+          </TextButtonWithLink>
           <TextButton fontSize="20px" onClick={(e) => handleDeletion(e)}>
             <GoTrash />
           </TextButton>
@@ -104,9 +121,10 @@ export default function Card({
           onClick={(e) => {
             e.stopPropagation();
             updateLiked(id);
+            setMyLiked((prevState) => !prevState);
           }}
         >
-          {liked.includes(id) ? <FilledHeart /> : <FiHeart />}
+          {myLiked ? <FilledHeart /> : <FiHeart />}
         </TextButton>
       )}
       <img src={`${api.defaults.baseURL}/files/${img}`} alt={name} />

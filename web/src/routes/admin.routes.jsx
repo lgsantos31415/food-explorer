@@ -5,7 +5,6 @@ import Show from "../pages/Show";
 import Create from "../pages/Create";
 import Edit from "../pages/Edit";
 
-import NoAccess from "../pages/NoAccess";
 import NotFound from "../pages/NotFound";
 
 import api from "../services/api.js";
@@ -26,9 +25,6 @@ export default function AdminRoutes() {
       <Route element={<Show />} path="/show/:id" />
       <Route element={<Create />} path="/create" />
       <Route element={<Edit />} path="/edit/:id" />
-
-      <Route element={<NoAccess />} path="/order" />
-      <Route element={<NoAccess />} path="/favorites" />
 
       <Route element={<NotFound />} path="/*" />
     </Routes>

@@ -1,16 +1,13 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-export const PreferencesContext = createContext({});
+export const OrdersContext = createContext({});
 
-function PreferencesProvider({ children }) {
+function OrdersProvider({ children }) {
   const [order, setOrder] = useState(() => {
     return JSON.parse(localStorage.getItem("@foodexplorer:order")) || [];
   });
   const [quantity, setQuantity] = useState(0);
   const [animation, setAnimation] = useState(false);
-  const [liked, setLiked] = useState(() => {
-    return JSON.parse(localStorage.getItem("@foodexplorer:liked")) || [];
-  });
 
   function updateOrder(id, quantityToAdd) {
     id = Number(id);
@@ -52,41 +49,32 @@ function PreferencesProvider({ children }) {
     }
   }
 
-  function updateLiked(id) {
-    let myLiked = [...liked];
-
-    if (myLiked.includes(id)) {
-      myLiked = myLiked.filter((item) => item !== id);
-    } else {
-      myLiked.push(id);
-    }
-
-    localStorage.setItem("@foodexplorer:liked", JSON.stringify(myLiked));
-    setLiked(myLiked);
+  function resetOrder() {
+    localStorage.removeItem("@foodexplorer:order");
+    setOrder({});
   }
 
   useEffect(() => calculateQuantity(), [order]);
 
   return (
-    <PreferencesContext.Provider
+    <OrdersContext.Provider
       value={{
         order,
         quantity,
         animation,
-        liked,
         updateOrder,
-        updateLiked,
         removeItem,
+        resetOrder,
       }}
     >
       {children}
-    </PreferencesContext.Provider>
+    </OrdersContext.Provider>
   );
 }
 
-function usePreferences() {
-  const context = useContext(PreferencesContext);
+function useOrders() {
+  const context = useContext(OrdersContext);
   return context;
 }
 
-export { PreferencesProvider, usePreferences };
+export { OrdersProvider, useOrders };

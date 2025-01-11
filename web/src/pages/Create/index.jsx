@@ -2,7 +2,7 @@ import { Container, Main, Row, Column, Ingredients, Img } from "./styles";
 
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import TextButton from "../../components/TextButton";
+import TextButtonWithLink from "../../components/TextButtonWithLink";
 import Input from "../../components/Input";
 import Select from "../../components/Select";
 import Textarea from "../../components/Textarea";
@@ -115,10 +115,10 @@ export default function Create() {
     <Container>
       <Header />
       <Main>
-        <TextButton fontSize="24px" bold padding="0 12px 0 0" to="/">
+        <TextButtonWithLink fontSize="24px" bold padding="0 12px 0 0" to="/">
           <FiChevronLeft />
           voltar
-        </TextButton>
+        </TextButtonWithLink>
 
         <h1>Adicionar prato</h1>
 

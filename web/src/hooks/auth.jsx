@@ -21,6 +21,10 @@ function AuthProvider({ children }) {
 
       const { user } = response.data;
 
+      localStorage.removeItem("@foodexplorer:user");
+      localStorage.removeItem("@foodexplorer:favorites");
+      localStorage.removeItem("@foodexplorer:order");
+
       localStorage.setItem("@foodexplorer:user", JSON.stringify(user));
 
       setData({ user });
@@ -35,6 +39,8 @@ function AuthProvider({ children }) {
 
   function signOut() {
     localStorage.removeItem("@foodexplorer:user");
+    localStorage.removeItem("@foodexplorer:favorites");
+    localStorage.removeItem("@foodexplorer:order");
     setData({});
   }
 

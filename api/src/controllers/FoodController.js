@@ -80,25 +80,32 @@ export default class FoodController {
     const { food_id, name, category, image, ingredients, description, price } =
       req.body;
 
+    // Obter ingredientes antigos e fazer o mapeamento correto para os IDs
     const oldIngredients = await con("ingredients").where({ food_id });
-    const arrayOldIngredients = oldIngredients.map((item) => item.name);
+    const oldIds = oldIngredients.map((item) => item.id);
 
+    // Comparar ingredientes antigos e novos
     const compareIngredients =
-      arrayOldIngredients.length === ingredients.length &&
-      arrayOldIngredients.every((item) => ingredients.includes(item));
+      oldIds.length === ingredients.length &&
+      oldIds.every((item) => ingredients.includes(item));
 
     if (!compareIngredients) {
-      const oldIds = arrayOldIngredients.map((item) => item.id);
+      // Deletar ingredientes antigos
       await con("ingredients").whereIn("id", oldIds).del();
 
+      // Criar novos ingredientes
       const user_id = req.user.id;
       const newIngredients = ingredients.map((name) => ({
         name,
         user_id,
         food_id,
       }));
+
+      // Inserir novos ingredientes no banco de dados
+      await con("ingredients").insert(newIngredients);
     }
 
+    // Atualizar a comida
     const foodUpdated = {
       name,
       category,

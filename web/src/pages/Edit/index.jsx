@@ -1,13 +1,13 @@
 import { Container, Main, Row, Column, Ingredients, Img } from "./styles.js";
 
-import Header from "../../components/Header/index.jsx";
-import Footer from "../../components/Footer/index.jsx";
-import TextButton from "../../components/TextButton/index.jsx";
-import Input from "../../components/Input/index.jsx";
-import Select from "../../components/Select/index.jsx";
-import Textarea from "../../components/Textarea/index.jsx";
-import Button from "../../components/Button/index.jsx";
-import Ingredient from "../../components/Ingredient/index.jsx";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+import TextButtonWithLink from "../../components/TextButtonWithLink";
+import Input from "../../components/Input";
+import Select from "../../components/Select";
+import Textarea from "../../components/Textarea";
+import Button from "../../components/Button";
+import Ingredient from "../../components/Ingredient";
 
 import { useNotification } from "../../hooks/notification.jsx";
 import { useState, useEffect } from "react";
@@ -143,10 +143,10 @@ export default function Edit() {
     <Container>
       <Header />
       <Main>
-        <TextButton fontSize="24px" bold padding="0 12px 0 0" to="/">
+        <TextButtonWithLink fontSize="24px" bold padding="0 12px 0 0" to="/">
           <FiChevronLeft />
           voltar
-        </TextButton>
+        </TextButtonWithLink>
 
         <h1>Editar prato</h1>
 

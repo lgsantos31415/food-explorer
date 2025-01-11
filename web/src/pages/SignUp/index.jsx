@@ -3,7 +3,7 @@ import { Container, Form, Column, Left, Right } from "./styles";
 import Logo from "../../components/Logo";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
-import TextButton from "../../components/TextButton";
+import TextButtonWithLink from "../../components/TextButtonWithLink";
 
 import { useState } from "react";
 import { useNotification } from "../../hooks/notification";
@@ -84,9 +84,9 @@ export default function SignUp() {
             />
           </Column>
           <Button onClick={(e) => handleNewUser(e)}>Criar conta</Button>
-          <TextButton to="/" padding="0 6px">
+          <TextButtonWithLink to="/" padding="0 6px">
             Já tenho uma conta
-          </TextButton>
+          </TextButtonWithLink>
         </Form>
       </Right>
     </Container>

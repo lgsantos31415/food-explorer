@@ -15,10 +15,10 @@ export const Container = styled.header`
   align-items: center;
   gap: 32px;
 
-  > a:nth-of-type(1) {
+  > div:nth-of-type(1) {
     display: none;
   }
-  > a:nth-of-type(3) {
+  > a:nth-of-type(2) {
     display: none;
   }
 
@@ -26,18 +26,15 @@ export const Container = styled.header`
     padding: 22px 28px;
 
     > a:nth-of-type(1) {
-      display: flex;
-    }
-    > div:nth-of-type(2) {
       display: none;
+    }
+    > div:nth-of-type(1) {
+      display: flex;
     }
     > button:nth-of-type(1) {
       display: none;
     }
     > a:nth-of-type(2) {
-      display: none;
-    }
-    > a:nth-of-type(3) {
       display: flex;
       position: relative;
 
@@ -59,6 +56,9 @@ export const Container = styled.header`
         line-height: 13px;
         font-weight: 600;
       }
+    }
+    > div:nth-of-type(3) {
+      display: none;
     }
   }
 `;

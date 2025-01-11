@@ -14,7 +14,7 @@ export const Main = styled.div`
   width: 100%;
   flex: 1;
 
-  padding: 42px 124px 100px;
+  padding: 32px 128px;
 
   > h1 {
     margin-block: 24px 32px;

@@ -13,6 +13,7 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Button from "../../components/Button";
 import TextButton from "../../components/TextButton";
+import TextButtonWithLink from "../../components/TextButtonWithLink";
 
 import Circle from "../../assets/circle.svg";
 import { FiMinus, FiPlus, FiChevronLeft } from "react-icons/fi";
@@ -23,7 +24,7 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import { useAuth } from "../../hooks/auth";
-import { usePreferences } from "../../hooks/preferences.jsx";
+import { useOrders } from "../../hooks/orders.jsx";
 
 import api from "../../services/api.js";
 
@@ -35,7 +36,7 @@ export default function Show() {
   const [ingredients, setIngredients] = useState(["carregando..."]);
 
   const { user } = useAuth();
-  const { updateOrder } = usePreferences();
+  const { updateOrder } = useOrders();
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -84,10 +85,10 @@ export default function Show() {
     <Container>
       <Header />
       <Main>
-        <TextButton fontSize="20px" bold padding="0 16px 0 0" to="/">
+        <TextButtonWithLink fontSize="20px" bold padding="0 16px 0 0" to="/">
           <FiChevronLeft />
           voltar
-        </TextButton>
+        </TextButtonWithLink>
         <Row>
           {image !== null ? (
             <img src={image} alt={name} />

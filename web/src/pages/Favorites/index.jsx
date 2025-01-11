@@ -4,7 +4,7 @@ import Header2 from "../../components/Header2";
 import TextButton from "../../components/TextButton";
 import Footer from "../../components/Footer";
 
-import { usePreferences } from "../../hooks/preferences";
+import { useFavorites } from "../../hooks/favorites";
 
 import { useEffect, useState } from "react";
 
@@ -12,7 +12,7 @@ import api from "../../services/api";
 
 export default function Favorites() {
   const [food, setFood] = useState([]);
-  const { liked, updateLiked } = usePreferences();
+  const { liked, updateLiked } = useFavorites();
 
   async function fetchData(id) {
     const response = await api.get(`/food/show/${id}`);

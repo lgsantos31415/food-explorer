@@ -15,14 +15,14 @@ export const Container = styled.header`
   align-items: center;
   gap: 32px;
 
-  > a:nth-of-type(1) {
+  > div:nth-of-type(1) {
     display: none;
   }
 
   @media (max-width: ${resolutions.medium}) {
     padding: 22px 28px;
 
-    > a:nth-of-type(1) {
+    > div:nth-of-type(1) {
       display: flex;
     }
   }
@@ -69,10 +69,10 @@ export const Row = styled.div`
         font-weight: 600;
       }
     }
-    > button {
+    > a:nth-of-type(4) {
       display: none;
     }
-    > a:nth-of-type(4) {
+    > button {
       display: none;
     }
   }

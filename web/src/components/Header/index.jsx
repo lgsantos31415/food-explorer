@@ -4,12 +4,13 @@ import Logo from "../Logo";
 import Input from "../Input";
 import Button from "../Button";
 import TextButton from "../TextButton";
+import TextButtonWithLink from "../TextButtonWithLink";
 
 import { FiSearch, FiLogOut, FiMenu } from "react-icons/fi";
 import { PiReceipt } from "react-icons/pi";
 
 import { useAuth } from "../../hooks/auth";
-import { usePreferences } from "../../hooks/preferences";
+import { useOrders } from "../../hooks/orders";
 import { useMenu } from "../../hooks/menu";
 import { useSearch } from "../../hooks/search";
 
@@ -17,7 +18,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Header({ isAdmin }) {
   const { signOut, user } = useAuth();
-  const { quantity, animation } = usePreferences();
+  const { quantity, animation } = useOrders();
   const { toggleVisibility } = useMenu();
   const { handleSearch } = useSearch();
 
@@ -29,12 +30,12 @@ export default function Header({ isAdmin }) {
         <FiMenu />
       </TextButton>
       <Column>
-        <TextButton to="/">
+        <TextButtonWithLink to="/">
           <Column>
             <Logo fontSize={1.5} />
             {user.role === "admin" && <span>admin</span>}
           </Column>
-        </TextButton>
+        </TextButtonWithLink>
       </Column>
       <Input
         icon={FiSearch}
@@ -57,14 +58,14 @@ export default function Header({ isAdmin }) {
           Pedidos ({quantity})
         </Button>
       )}
-      <TextButton fontSize="20px" to="/" onClick={signOut}>
+      <TextButtonWithLink fontSize="20px" to="/" onClick={signOut}>
         <FiLogOut />
-      </TextButton>
+      </TextButtonWithLink>
       {user.role !== "admin" && (
-        <TextButton to="/order" fontSize="20px">
+        <TextButtonWithLink to="/order" fontSize="20px">
           <PiReceipt />
           <span>{quantity}</span>
-        </TextButton>
+        </TextButtonWithLink>
       )}
     </Container>
   );

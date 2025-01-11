@@ -14,7 +14,7 @@ export const Main = styled.div`
   width: 100%;
   flex: 1;
 
-  padding: 24px 124px;
+  padding: 32px 128px;
 
   display: flex;
   gap: 42px;

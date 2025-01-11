@@ -2,6 +2,7 @@ import { Container, Header, Main } from "./styles.js";
 
 import Input from "../Input/";
 import TextButton from "../TextButton/";
+import TextButtonWithLink from "../TextButtonWithLink/";
 
 import { FiSearch, FiX } from "react-icons/fi";
 
@@ -25,9 +26,13 @@ export default function Menu() {
       <Main>
         {variation === 1 &&
           (user?.role === "admin" ? (
-            <TextButton fontSize="20px" to="/create" onClick={toggleVisibility}>
+            <TextButtonWithLink
+              fontSize="20px"
+              to="/create"
+              onClick={toggleVisibility}
+            >
               Novo prato
-            </TextButton>
+            </TextButtonWithLink>
           ) : (
             <Input
               icon={FiSearch}
@@ -36,15 +41,24 @@ export default function Menu() {
             />
           ))}
         {variation == 2 && (
-          <TextButton
+          <TextButtonWithLink
             fontSize="20px"
             to="/favorites"
             onClick={toggleVisibility}
           >
             Meus favoritos
-          </TextButton>
+          </TextButtonWithLink>
         )}
-        <TextButton
+        {variation == 2 && (
+          <TextButtonWithLink
+            fontSize="20px"
+            to="/history"
+            onClick={toggleVisibility}
+          >
+            Histórico de pedidos
+          </TextButtonWithLink>
+        )}
+        <TextButtonWithLink
           fontSize="20px"
           to="/"
           onClick={() => {
@@ -53,7 +67,7 @@ export default function Menu() {
           }}
         >
           Sair
-        </TextButton>
+        </TextButtonWithLink>
       </Main>
     </Container>
   );
