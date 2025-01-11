@@ -14,7 +14,7 @@ import {
 
 import Header2 from "../../components/Header2";
 import Footer from "../../components/Footer";
-import Select from "../../components/Select";
+import OrderSelect from "../../components/OrderSelect";
 
 import resolutions from "../../styles/adaptativeResolutions";
 
@@ -102,11 +102,11 @@ export default function Orders() {
                   return (
                     <Tr key={key}>
                       <Td>
-                        <Select value={item.status}>
+                        <OrderSelect orderId={item.id} value={item.status}>
                           <option value="pending">Pendente</option>
                           <option value="preparing">Preparando</option>
                           <option value="delivered">Entregue</option>
-                        </Select>
+                        </OrderSelect>
                       </Td>
                       <Td>{String(item.id).padStart(10, "0")}</Td>
                       <Td>
@@ -151,6 +151,11 @@ export default function Orders() {
                           })
                           .join(", ")}
                     </p>
+                    <OrderSelect orderId={item.id} value={item.status}>
+                      <option value="pending">Pendente</option>
+                      <option value="preparing">Preparando</option>
+                      <option value="delivered">Entregue</option>
+                    </OrderSelect>
                   </Row>
                 );
               })}

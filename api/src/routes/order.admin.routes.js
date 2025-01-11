@@ -11,5 +11,6 @@ import ensureAuthentication from "../middlewares/ensureAuthentication.js";
 orderRouterAdmin.use(ensureAuthentication);
 
 orderRouterAdmin.get("/", orderControllerAdmin.index);
+orderRouterAdmin.patch("/", orderControllerAdmin.update);
 
 export default orderRouterAdmin;

@@ -56,4 +56,14 @@ export default class OrderControllerAdmin {
 
     return res.json([]);
   }
+  async update(req, res) {
+    const { id, status } = req.body;
+    await con("orders").where({ id }).update({ status });
+    try {
+    } catch (error) {
+      throw new AppError(error);
+    }
+
+    res.json();
+  }
 }
