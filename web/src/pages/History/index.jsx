@@ -112,14 +112,18 @@ export default function History() {
                         {getStatus(item.status).icon}
                         {getStatus(item.status).message}
                       </Td>
-                      <Td>{String(item.id).padStart(8, "0")}</Td>
+                      <Td>{String(item.id).padStart(10, "0")}</Td>
                       <Td>
                         {item.ordereds?.length > 0 &&
-                          item.ordereds.map((item) => {
-                            return `${item.quantity} x ${item.name}`;
-                          })}
+                          item.ordereds
+                            .map((item) => {
+                              return `${item.quantity} x ${item.name}`;
+                            })
+                            .join(", ")}
                       </Td>
-                      <Td>{getFullDate(item.created_at)}</Td>
+                      <Td>
+                        {getFullDate(item.created_at).split(", ").join(" às ")}
+                      </Td>
                     </Tr>
                   );
                 })}
@@ -136,14 +140,18 @@ export default function History() {
                         {getStatus(item.status).icon}
                         {getStatus(item.status).message}
                       </span>
-                      <span>{String(item.id).padStart(8, "0")}</span>
-                      <span>{getFullDate(item.created_at)}</span>
+                      <span>{String(item.id).padStart(10, "0")}</span>
+                      <span>
+                        {getFullDate(item.created_at).split(", ").join(" às ")}
+                      </span>
                     </Row2>
                     <p>
                       {item.ordereds?.length > 0 &&
-                        item.ordereds.map((item) => {
-                          return `${item.quantity} x ${item.name}`;
-                        })}
+                        item.ordereds
+                          .map((item) => {
+                            return `${item.quantity} x ${item.name}`;
+                          })
+                          .join(", ")}
                     </p>
                   </Row>
                 );
